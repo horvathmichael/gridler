@@ -2,13 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core';
 
-import DataGridRowColumn from './DataGridRowColumn';
+import RowColumn from './RowColumn';
+
+const densities = {
+  compact: 0,
+  standard: 1,
+  comfortable: 2,
+};
 
 const useStyles = makeStyles((theme) => ({
   row: {
     display: 'flex',
     justifyContent: 'center',
     flexWrap: 'nowrap',
+    paddingBottom: ({ density }) => theme.spacing(densities[density]),
+    paddingTop: ({ density }) => theme.spacing(densities[density]),
     overflowX: 'auto',
     '&:hover': {
       backgroundColor: theme.palette.action.hover,
@@ -17,18 +25,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function DataGridRow({ row, columns, onClick }) {
-  const classes = useStyles({
-    onClick,
-  });
+export default function Row({
+  row, columns, density, onClick,
+}) {
+  const classes = useStyles({ density, onClick });
 
   return (
     <div className={classes.row}>
       {columns
         .filter((column) => !column.hidden)
         .map((column) => (
-          <DataGridRowColumn
-            key={row[column.field]}
+          <RowColumn
+            key={column.field}
             row={row}
             column={column}
             onClick={onClick}
@@ -38,12 +46,14 @@ export default function DataGridRow({ row, columns, onClick }) {
   );
 }
 
-DataGridRow.propTypes = {
+Row.propTypes = {
   columns: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   row: PropTypes.shape().isRequired,
+  density: PropTypes.string,
   onClick: PropTypes.func,
 };
 
-DataGridRow.defaultProps = {
+Row.defaultProps = {
   onClick: undefined,
+  density: 'standard',
 };

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 
-import { DownloadIcon } from './Icons';
+import { AddIcon } from './Icons';
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -11,22 +11,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function DataGridToolbarExport({ localization, onExport }) {
+export default function ToolbarExport({ localization, onAdd }) {
   const classes = useStyles();
 
   return (
     <div>
-      <Button color="primary" onClick={onExport}>
-        <DownloadIcon className={classes.icon} />
+      <Button color="primary" onClick={onAdd}>
+        <AddIcon className={classes.icon} />
         {localization.button}
       </Button>
     </div>
   );
 }
 
-DataGridToolbarExport.propTypes = {
+ToolbarExport.propTypes = {
   localization: PropTypes.shape({
     button: PropTypes.string.isRequired,
   }).isRequired,
-  onExport: PropTypes.func.isRequired,
+  onAdd: PropTypes.func.isRequired,
 };

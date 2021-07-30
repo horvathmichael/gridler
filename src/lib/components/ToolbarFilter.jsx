@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function DataGridToolbarFilter({
+export default function ToolbarFilter({
   localization,
   columns,
   filters,
@@ -82,7 +82,7 @@ export default function DataGridToolbarFilter({
   );
 }
 
-DataGridToolbarFilter.propTypes = {
+ToolbarFilter.propTypes = {
   localization: PropTypes.shape({
     button: PropTypes.string.isRequired,
   }).isRequired,
@@ -91,6 +91,6 @@ DataGridToolbarFilter.propTypes = {
   onFiltersChange: PropTypes.func.isRequired,
 };
 
-DataGridToolbarFilter.defaultProps = {
+ToolbarFilter.defaultProps = {
   filters: {},
 };

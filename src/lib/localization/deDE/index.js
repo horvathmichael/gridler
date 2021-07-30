@@ -21,5 +21,7 @@ export default {
   },
   footer: {
     sum: 'Gesamt',
+    page: 'Seite',
+    pageSize: 'Zeilen pro Seite',
   },
 };

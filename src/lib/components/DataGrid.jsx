@@ -4,10 +4,10 @@ import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core';
 
-import DataGridToolbar from './DataGridToolbar';
-import DataGridHeader from './DataGridHeader';
-import DataGridRows from './DataGridRows';
-import DataGridFooter from './DataGridFooter';
+import Toolbar from './Toolbar';
+import Header from './Header';
+import Rows from './Rows';
+import Footer from './Footer';
 
 const useStyles = makeStyles(() => ({
   main: {
@@ -23,11 +23,17 @@ const useStyles = makeStyles(() => ({
 
 export default function DataGrid({
   localization,
+  height,
   rows,
+  totalrows,
   columns,
   filters,
   density,
   sort,
+  page,
+  pageSize,
+  onPageChange,
+  onPageSizeChange,
   onColumnsChange,
   onFiltersChange,
   onDensityChange,
@@ -39,7 +45,7 @@ export default function DataGrid({
 
   return (
     <div>
-      <DataGridToolbar
+      <Toolbar
         localization={localization.toolbar}
         columns={columns}
         filters={filters}
@@ -51,24 +57,32 @@ export default function DataGrid({
       />
       <Paper>
         <div className={classes.main}>
-          <DataGridHeader
+          <Header
             columns={columns}
             filters={filters}
             sort={sort}
             onSortChange={onSortChange}
           />
           <Divider />
-          <DataGridRows
-            rows={rows}
-            columns={columns}
-            filters={filters}
-            sort={sort}
-            onRowClick={onRowClick}
-          />
+          <div style={{ maxHeight: `${height}px`, overflow: 'auto' }}>
+            <Rows
+              rows={rows}
+              columns={columns}
+              density={density}
+              filters={filters}
+              sort={sort}
+              onRowClick={onRowClick}
+            />
+
+          </div>
           <Divider />
-          <DataGridFooter
+          <Footer
             localization={localization.footer}
-            rows={rows}
+            rows={totalrows}
+            page={page}
+            pageSize={pageSize}
+            onPageChange={onPageChange}
+            onPageSizeChange={onPageSizeChange}
           />
         </div>
       </Paper>
@@ -82,53 +96,28 @@ DataGrid.propTypes = {
     footer: PropTypes.shape({}).isRequired,
   }).isRequired,
   rows: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  totalrows: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   columns: PropTypes.arrayOf(PropTypes.shape()).isRequired,
-  filters: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  filters: PropTypes.arrayOf(PropTypes.shape()),
   density: PropTypes.string.isRequired,
   sort: PropTypes.shape(),
+  height: PropTypes.number,
+  page: PropTypes.number.isRequired,
+  pageSize: PropTypes.number.isRequired,
   onColumnsChange: PropTypes.func.isRequired,
   onFiltersChange: PropTypes.func.isRequired,
   onDensityChange: PropTypes.func.isRequired,
   onSortChange: PropTypes.func.isRequired,
+  onPageChange: PropTypes.func.isRequired,
+  onPageSizeChange: PropTypes.func.isRequired,
   onAdd: PropTypes.func,
   onRowClick: PropTypes.func,
 };
 
 DataGrid.defaultProps = {
+  filters: undefined,
   sort: undefined,
   onAdd: undefined,
   onRowClick: undefined,
+  height: 500,
 };
-
-// {
-//         field: 'avatar',
-//         headerName: localization.users.fields.avatar,
-//         renderHeader: avatarRenderHeader,
-//         renderCell: avatarRenderCell,
-//         width: 70,
-//         sortable: false,
-//         filterable: false,
-//         // disableColumnMenu: true,
-//       }, {
-//         field: 'email',
-//         headerName: localization.users.fields.email,
-//         flex: true,
-//       }, {
-//         field: 'firstname',
-//         headerName: localization.users.fields.firstname,
-//         flex: true,
-//       }, {
-//         field: 'lastname',
-//         headerName: localization.users.fields.lastname,
-//         flex: true,
-//       }, {
-//         field: 'role',
-//         headerName: localization.users.fields.role,
-//         flex: true,
-//         valueGetter: roleValueGetter,
-//       }, {
-//         field: 'active',
-//         headerName: localization.users.fields.active,
-//         width: 110,
-//         type: 'boolean',
-//       },

@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 
 const densities = ['compact', 'standard', 'comfortable'];
 
-export default function DataGridToolbarDensity({
+export default function ToolbarDensity({
   localization,
   density,
   onDensityChange,
@@ -63,7 +63,7 @@ export default function DataGridToolbarDensity({
   );
 }
 
-DataGridToolbarDensity.propTypes = {
+ToolbarDensity.propTypes = {
   localization: PropTypes.shape({
     button: PropTypes.string.isRequired,
   }).isRequired,

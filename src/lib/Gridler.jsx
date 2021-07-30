@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import Localization from './localization';
@@ -17,9 +17,17 @@ export default function Gridler({
   onRowClick,
 }) {
   const [columnsState, setColumnsState] = useState(columns);
-  const [filtersState] = useState(filters);
   const [density, setDensity] = useState('standard');
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+  const [filtersState] = useState(filters);
+  const [rowsState, setRowsState] = useState(rows.slice(page * pageSize, page * pageSize + pageSize));
   const [sortState, setSortState] = useState(sort);
+
+  useEffect(() => {
+    const newRows = rows.slice((page - 1) * pageSize, page * pageSize);
+    setRowsState(newRows);
+  }, [filtersState, page, pageSize]);
 
   const onColumnsChange = (column) => {
     setColumnsState(columnsState.map((item) => {
@@ -42,14 +50,25 @@ export default function Gridler({
     }
   };
 
+  const onPageChange = (event, value) => setPage(Number.parseInt(value, 10));
+  const onPageSizeChange = (event, value) => {
+    setPage(1);
+    setPageSize(Number.parseInt(value, 10));
+  };
+
   return (
     <DataGrid
       localization={Localization[localization]}
-      rows={rows}
+      rows={rowsState}
+      totalrows={rows}
       columns={columnsState}
       filters={filtersState}
       density={density}
       sort={sortState}
+      page={page}
+      pageSize={pageSize}
+      onPageChange={onPageChange}
+      onPageSizeChange={onPageSizeChange}
       onColumnsChange={onColumnsChange}
       onFiltersChange={onFiltersChange}
       onDensityChange={setDensity}

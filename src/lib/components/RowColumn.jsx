@@ -8,17 +8,18 @@ import { YesIcon, NoIcon } from './Icons';
 
 const useStyles = makeStyles((theme) => ({
   column: {
-    padding: theme.spacing(1),
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
     verticalAlign: 'middle',
     maxWidth: 'unset',
-    minWidth: ({ width }) => width || '150px',
+    minWidth: ({ width }) => `${width}px` || '150px',
   },
   icon: {
     marginLeft: theme.spacing(1),
   },
 }));
 
-export default function DataGridRowColumn({ column, row, onClick }) {
+export default function RowColumn({ column, row, onClick }) {
   const classes = useStyles({
     width: column.width,
   });
@@ -51,10 +52,10 @@ export default function DataGridRowColumn({ column, row, onClick }) {
   );
 }
 
-DataGridRowColumn.propTypes = {
+RowColumn.propTypes = {
   column: PropTypes.shape({
     field: PropTypes.string,
-    width: PropTypes.string,
+    width: PropTypes.number,
     type: PropTypes.string,
     renderCell: PropTypes.func,
     valueGetter: PropTypes.func,
@@ -63,6 +64,6 @@ DataGridRowColumn.propTypes = {
   onClick: PropTypes.func,
 };
 
-DataGridRowColumn.defaultProps = {
+RowColumn.defaultProps = {
   onClick: undefined,
 };

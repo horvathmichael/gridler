@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core';
 
-import DataGridHeaderColumn from './DataGridHeaderColumn';
+import HeaderColumn from './HeaderColumn';
 
 const useStyles = makeStyles((theme) => ({
   header: {
@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function DataGridHeader({ columns, sort, onSortChange }) {
+export default function Header({ columns, sort, onSortChange }) {
   const classes = useStyles();
 
   return (
@@ -21,7 +21,7 @@ export default function DataGridHeader({ columns, sort, onSortChange }) {
       {columns
         .filter((column) => !column.hidden)
         .map((column) => (
-          <DataGridHeaderColumn
+          <HeaderColumn
             key={column.field}
             column={column}
             sort={sort}
@@ -32,13 +32,13 @@ export default function DataGridHeader({ columns, sort, onSortChange }) {
   );
 }
 
-DataGridHeader.propTypes = {
+Header.propTypes = {
   columns: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   sort: PropTypes.shape(),
   onSortChange: PropTypes.func.isRequired,
   // filters: PropTypes.arrayOf(PropTypes.shape()).isRequired,
 };
 
-DataGridHeader.defaultProps = {
+Header.defaultProps = {
   sort: undefined,
 };

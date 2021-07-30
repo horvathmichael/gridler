@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import DataGridRow from './DataGridRow';
+import Row from './Row';
 
-export default function DataGridRows({
+export default function Rows({
   rows,
   columns,
+  density,
   // filters,
   // sort,
   onRowClick,
@@ -13,25 +14,27 @@ export default function DataGridRows({
   return rows
   // .filter((column) => !column.hidden)
     .map((row) => (
-      <DataGridRow
-        key={row}
+      <Row
+        key={row.id || row}
         row={row}
         columns={columns}
+        density={density}
         onClick={onRowClick}
       />
     ));
 }
 
-DataGridRows.propTypes = {
+Rows.propTypes = {
   rows: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   columns: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  density: PropTypes.string.isRequired,
   // filters: PropTypes.arrayOf(PropTypes.shape()),
   // sort: PropTypes.shape(),
   // filters: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   onRowClick: PropTypes.func,
 };
 
-DataGridRows.defaultProps = {
+Rows.defaultProps = {
   // filters: undefined,
   // sort: undefined,
   onRowClick: undefined,

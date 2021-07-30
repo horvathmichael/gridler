@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
     verticalAlign: 'middle',
     maxWidth: 'unset',
-    minWidth: ({ width }) => width || '150px',
+    minWidth: ({ width }) => `${width}px` || '150px',
     '&:hover': {
       cursor: ({ sortable }) => (sortable ? 'pointer' : 'default'),
     },
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function DataGridHeaderColumn({ column, sort, onSortChange }) {
+export default function HeaderColumn({ column, sort, onSortChange }) {
   const classes = useStyles({
     sortable: column.sortable !== false,
     width: column.width,
@@ -61,11 +61,11 @@ export default function DataGridHeaderColumn({ column, sort, onSortChange }) {
   );
 }
 
-DataGridHeaderColumn.propTypes = {
+HeaderColumn.propTypes = {
   column: PropTypes.shape({
     field: PropTypes.string,
     headerName: PropTypes.string,
-    width: PropTypes.string,
+    width: PropTypes.number,
     sortable: PropTypes.bool,
     renderHeader: PropTypes.func,
   }).isRequired,
@@ -76,6 +76,6 @@ DataGridHeaderColumn.propTypes = {
   onSortChange: PropTypes.func.isRequired,
 };
 
-DataGridHeaderColumn.defaultProps = {
+HeaderColumn.defaultProps = {
   sort: undefined,
 };

@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function DataGridToolbarColumns({
+export default function ToolbarColumns({
   columns,
   localization,
   onColumnsChange,
@@ -63,7 +63,7 @@ export default function DataGridToolbarColumns({
   );
 }
 
-DataGridToolbarColumns.propTypes = {
+ToolbarColumns.propTypes = {
   localization: PropTypes.shape({
     button: PropTypes.string.isRequired,
   }).isRequired,

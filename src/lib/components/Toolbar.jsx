@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Toolbar from '@material-ui/core/Toolbar';
+import MuiToolbar from '@material-ui/core/Toolbar';
 import { makeStyles } from '@material-ui/core';
 
-import DataGridToolbarAdd from './DataGridToolbarAdd';
-import DataGridToolbarColumns from './DataGridToolbarColumns';
-import DataGridToolbarFilter from './DataGridToolbarFilter';
-// import DataGridToolbarDensity from './DataGridToolbarDensity';
-import DataGridToolbarExport from './DataGridToolbarExport';
+import DataGridToolbarAdd from './ToolbarAdd';
+import ToolbarColumns from './ToolbarColumns';
+import ToolbarFilter from './ToolbarFilter';
+import ToolbarDensity from './ToolbarDensity';
+import ToolbarExport from './ToolbarExport';
 
 const useStyles = makeStyles(() => ({
   toolbar: {
@@ -18,21 +18,21 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function DataGridToolbar({
+export default function Toolbar({
   localization,
   columns,
   filters,
-  // density,
+  density,
   onColumnsChange,
   onFilterChange,
-  // onDensityChange,
+  onDensityChange,
   onExport,
   onAdd,
 }) {
   const classes = useStyles();
 
   return (
-    <Toolbar className={classes.toolbar}>
+    <MuiToolbar className={classes.toolbar}>
       { onAdd && (
         <DataGridToolbarAdd
           localization={localization.add}
@@ -40,43 +40,43 @@ export default function DataGridToolbar({
         />
       )}
       <div className={classes.flexGrow} />
-      <DataGridToolbarColumns
+      <ToolbarColumns
         localization={localization.columns}
         columns={columns}
         onColumnsChange={onColumnsChange}
       />
-      <DataGridToolbarFilter
+      <ToolbarFilter
         localization={localization.filter}
         columns={columns}
         filters={filters}
         onFilterChange={onFilterChange}
       />
-      {/* <DataGridToolbarDensity
+      <ToolbarDensity
         localization={localization.density}
         density={density}
         onDensityChange={onDensityChange}
-      /> */}
-      <DataGridToolbarExport
+      />
+      <ToolbarExport
         localization={localization.export}
         onExport={onExport}
       />
-    </Toolbar>
+    </MuiToolbar>
   );
 }
 
-DataGridToolbar.propTypes = {
-  localization: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+Toolbar.propTypes = {
+  localization: PropTypes.shape().isRequired,
   columns: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   filters: PropTypes.arrayOf(PropTypes.shape()),
-  // density: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  density: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   onColumnsChange: PropTypes.func.isRequired,
   onFilterChange: PropTypes.func.isRequired,
-  // onDensityChange: PropTypes.func.isRequired,
+  onDensityChange: PropTypes.func.isRequired,
   onExport: PropTypes.func.isRequired,
   onAdd: PropTypes.func,
 };
 
-DataGridToolbar.defaultProps = {
+Toolbar.defaultProps = {
   filters: undefined,
   onAdd: undefined,
 };
