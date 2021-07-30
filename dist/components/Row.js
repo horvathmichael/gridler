@@ -23,7 +23,6 @@ const densities = {
 const useStyles = (0, _core.makeStyles)(theme => ({
   row: {
     display: 'flex',
-    justifyContent: 'center',
     flexWrap: 'nowrap',
     paddingBottom: _ref => {
       let {
@@ -37,7 +36,6 @@ const useStyles = (0, _core.makeStyles)(theme => ({
       } = _ref2;
       return theme.spacing(densities[density]);
     },
-    overflowX: 'auto',
     '&:hover': {
       backgroundColor: theme.palette.action.hover,
       cursor: _ref3 => {

@@ -49,6 +49,7 @@ function Footer(_ref) {
   let {
     localization,
     rows,
+    filteredRows,
     page,
     pageSize,
     onPageChange,
@@ -59,11 +60,11 @@ function Footer(_ref) {
   const countPages = () => {
     const pages = [];
 
-    for (let index = 1; index <= rows.length / pageSize; index += 1) {
+    for (let index = 1; index <= filteredRows.length / pageSize; index += 1) {
       pages.push("".concat(index));
     }
 
-    if (rows.length % pageSize > 0) {
+    if (filteredRows.length % pageSize > 0) {
       pages.push("".concat(pages.length + 1));
     }
 
@@ -74,7 +75,7 @@ function Footer(_ref) {
     className: classes.footer
   }, /*#__PURE__*/_react.default.createElement(_Typography.default, {
     className: classes.text
-  }, "".concat(localization.sum, ": ").concat(rows.length)), /*#__PURE__*/_react.default.createElement("div", {
+  }, "".concat(localization.rows, ": ").concat(filteredRows.length, " / ").concat(rows.length)), /*#__PURE__*/_react.default.createElement("div", {
     className: classes.flexGrow
   }), /*#__PURE__*/_react.default.createElement(_Autocomplete.default, {
     className: classes.autocomplete,
@@ -106,10 +107,13 @@ function Footer(_ref) {
     options: countPages(),
     onChange: onPageChange,
     disableClearable: true,
-    renderInput: params => /*#__PURE__*/_react.default.createElement(_TextField.default // eslint-disable-next-line react/jsx-props-no-spreading
-    , _extends({}, params, {
-      label: "".concat(localization.page, ": ")
-    })),
+    renderInput: params => {
+      const lastPage = countPages()[countPages().length - 1] || 1;
+      return /*#__PURE__*/_react.default.createElement(_TextField.default // eslint-disable-next-line react/jsx-props-no-spreading
+      , _extends({}, params, {
+        label: "".concat(localization.page, " (").concat(params.inputProps.value, "/").concat(lastPage, "): ")
+      }));
+    },
     renderOption: (option, _ref3) => {
       let {
         selected
@@ -122,18 +126,19 @@ function Footer(_ref) {
         justify: "center"
       }, option) : option;
     }
-  }), page < rows.length / pageSize && /*#__PURE__*/_react.default.createElement(_Button.default, {
+  }), page < filteredRows.length / pageSize && /*#__PURE__*/_react.default.createElement(_Button.default, {
     onClick: () => onPageChange(undefined, "".concat(page + 1))
   }, /*#__PURE__*/_react.default.createElement(_Icons.ArrowRightIcon, null)));
 }
 
 Footer.propTypes = {
   localization: _propTypes.default.shape({
-    sum: _propTypes.default.string.isRequired,
+    rows: _propTypes.default.string.isRequired,
     page: _propTypes.default.string.isRequired,
     pageSize: _propTypes.default.string.isRequired
   }).isRequired,
   rows: _propTypes.default.arrayOf(_propTypes.default.shape()).isRequired,
+  filteredRows: _propTypes.default.arrayOf(_propTypes.default.shape()).isRequired,
   page: _propTypes.default.number.isRequired,
   pageSize: _propTypes.default.number.isRequired,
   onPageChange: _propTypes.default.func.isRequired,

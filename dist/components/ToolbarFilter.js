@@ -23,6 +23,8 @@ var _FormControlLabel = _interopRequireDefault(require("@material-ui/core/FormCo
 
 var _Checkbox = _interopRequireDefault(require("@material-ui/core/Checkbox"));
 
+var _Badge = _interopRequireDefault(require("@material-ui/core/Badge"));
+
 var _Icons = require("./Icons");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -47,7 +49,7 @@ function ToolbarFilter(_ref) {
     localization,
     columns,
     filters,
-    onFiltersChange
+    onFilterChange
   } = _ref;
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = (0, _react.useState)();
@@ -56,12 +58,25 @@ function ToolbarFilter(_ref) {
 
   const onMenuClose = () => setAnchorEl();
 
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_Button.default, {
+  const countFilter = () => {
+    let counter = null;
+    Object.keys(filters).forEach(key => {
+      if (filters[key] !== '' && filters[key] !== null) {
+        counter += 1;
+      }
+    });
+    return counter;
+  };
+
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_Badge.default, {
+    color: "primary",
+    badgeContent: countFilter()
+  }, /*#__PURE__*/_react.default.createElement(_Button.default, {
     color: "primary",
     onClick: onMenuOpen
   }, /*#__PURE__*/_react.default.createElement(_Icons.FilterIcon, {
     className: classes.icon
-  }), localization.button), /*#__PURE__*/_react.default.createElement(_Popover.default, {
+  }), localization.button)), /*#__PURE__*/_react.default.createElement(_Popover.default, {
     getContentAnchorEl: null,
     anchorEl: anchorEl,
     anchorOrigin: {
@@ -78,12 +93,11 @@ function ToolbarFilter(_ref) {
     className: classes.filter,
     key: column.field
   }, (column.type === 'text' || !column.type) && /*#__PURE__*/_react.default.createElement(_TextField.default, {
-    color: "primary" // variant=""
-    ,
+    color: "primary",
     name: column.field,
     label: column.headerName,
     value: filters[column.field],
-    onChange: onFiltersChange,
+    onChange: event => onFilterChange(column.field, event.target.value),
     fullWidth: true
   }), column.type === 'boolean' && /*#__PURE__*/_react.default.createElement(_FormControlLabel.default, {
     label: column.headerName,
@@ -91,7 +105,9 @@ function ToolbarFilter(_ref) {
       color: "primary",
       name: column.field,
       checked: filters[column.field] === null ? false : filters[column.field],
-      onChange: onFiltersChange,
+      onChange: (event, value) => {
+        onFilterChange(column.field, filters[column.field] === false ? null : value);
+      },
       indeterminate: filters[column.field] === false
     })
   })))));
@@ -103,7 +119,7 @@ ToolbarFilter.propTypes = {
   }).isRequired,
   columns: _propTypes.default.arrayOf(_propTypes.default.shape()).isRequired,
   filters: _propTypes.default.PropTypes.shape(),
-  onFiltersChange: _propTypes.default.func.isRequired
+  onFilterChange: _propTypes.default.func.isRequired
 };
 ToolbarFilter.defaultProps = {
   filters: {}

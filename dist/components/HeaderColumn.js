@@ -64,17 +64,23 @@ function HeaderColumn(_ref3) {
   };
 
   const renderHeader = () => {
-    if (sort && sort.field === column.field) {
+    if (sort && sort.column === column) {
       return /*#__PURE__*/_react.default.createElement(_Box.default, {
         display: "flex"
-      }, /*#__PURE__*/_react.default.createElement(_Typography.default, null, column.headerName), sort.order === 'asc' ? /*#__PURE__*/_react.default.createElement(_Icons.SortAscIcon, {
+      }, /*#__PURE__*/_react.default.createElement(_Typography.default, {
+        color: "primary",
+        variant: "h6"
+      }, column.headerName), sort.order === 'asc' ? /*#__PURE__*/_react.default.createElement(_Icons.SortAscIcon, {
         className: classes.icon
       }) : /*#__PURE__*/_react.default.createElement(_Icons.SortDescIcon, {
         className: classes.icon
       }));
     }
 
-    return /*#__PURE__*/_react.default.createElement(_Typography.default, null, column.headerName);
+    return /*#__PURE__*/_react.default.createElement(_Typography.default, {
+      color: "primary",
+      variant: "h6"
+    }, column.headerName);
   };
 
   return /*#__PURE__*/_react.default.createElement(_Box.default, {
@@ -92,7 +98,7 @@ HeaderColumn.propTypes = {
     renderHeader: _propTypes.default.func
   }).isRequired,
   sort: _propTypes.default.shape({
-    field: _propTypes.default.string,
+    column: _propTypes.default.shape({}),
     order: _propTypes.default.string
   }),
   onSortChange: _propTypes.default.func.isRequired

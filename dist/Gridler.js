@@ -10,6 +10,8 @@ require("core-js/modules/es.array.sort.js");
 
 require("core-js/modules/web.dom-collections.iterator.js");
 
+require("core-js/modules/es.string.includes.js");
+
 var _react = _interopRequireWildcard(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
@@ -49,13 +51,39 @@ function Gridler(_ref) {
   const [density, setDensity] = (0, _react.useState)('standard');
   const [page, setPage] = (0, _react.useState)(1);
   const [pageSize, setPageSize] = (0, _react.useState)(10);
-  const [filtersState] = (0, _react.useState)(filters);
-  const [rowsState, setRowsState] = (0, _react.useState)(rows.slice(page * pageSize, page * pageSize + pageSize));
-  const [sortState, setSortState] = (0, _react.useState)(sort);
+  const [activeFilters, setActiveFilters] = (0, _react.useState)(filters);
+  const [filteredRows, setFilteredRows] = (0, _react.useState)(rows);
+  const [pageRows, setPageRows] = (0, _react.useState)(rows.slice(page * pageSize, page * pageSize + pageSize));
+  const [activeSort, setActiveSort] = (0, _react.useState)(sort);
   (0, _react.useEffect)(() => {
-    const newRows = rows.slice((page - 1) * pageSize, page * pageSize);
-    setRowsState(newRows);
-  }, [filtersState, page, pageSize]);
+    setFilteredRows(rows.filter(row => {
+      let result = true;
+      Object.keys(activeFilters).forEach(field => {
+        const column = columns.find(item => item.field === field);
+
+        if (column.type === 'text' || !column.type) {
+          result = result && row[column.field].includes(activeFilters[column.field]);
+        } else if (column.type === 'boolean') {
+          result = result && (activeFilters[column.field] === null || row[column.field] === activeFilters[column.field]);
+        } else {
+          console.error("MISSING FILTER TYPE: ".concat(column.type));
+        }
+      });
+      return result;
+    }).sort((a, b) => {
+      if (!activeSort || !activeSort.column) {
+        return 0;
+      }
+
+      if (activeSort.column.type === 'text' || !activeSort.column.type) {
+        return activeSort.order === ASC ? a[activeSort.column.field].localeCompare(b[activeSort.column.field]) : b[activeSort.column.field].localeCompare(a[activeSort.column.field]);
+      }
+
+      return 0;
+    }));
+    setPage(1);
+  }, [activeFilters, activeSort]);
+  (0, _react.useEffect)(() => setPageRows(filteredRows.slice((page - 1) * pageSize, page * pageSize)), [filteredRows, page, pageSize]);
 
   const onColumnsChange = column => {
     setColumnsState(columnsState.map(item => {
@@ -66,21 +94,21 @@ function Gridler(_ref) {
     }));
   };
 
-  const onFiltersChange = filter => {
-    console.log(filter);
-  };
+  const onFilterChange = (column, value) => setActiveFilters(_objectSpread(_objectSpread({}, activeFilters), {}, {
+    [column]: value
+  }));
 
   const onSortChange = column => {
-    if (!sortState || sortState.field !== column.field) {
-      setSortState({
-        field: column.field,
+    if (!activeSort || activeSort.column !== column) {
+      setActiveSort({
+        column,
         order: ASC
       });
-    } else if (sortState.field === column.field && sortState.order === DESC) {
-      setSortState();
-    } else if (sortState.field === column.field) {
-      setSortState({
-        field: column.field,
+    } else if (activeSort.column === column && activeSort.order === DESC) {
+      setActiveSort();
+    } else if (activeSort.column === column) {
+      setActiveSort({
+        column,
         order: DESC
       });
     }
@@ -93,22 +121,29 @@ function Gridler(_ref) {
     setPageSize(Number.parseInt(value, 10));
   };
 
+  const onExport = () => {
+    alert('Der Export befindet sich in Entwicklung');
+  };
+
   return /*#__PURE__*/_react.default.createElement(_DataGrid.default, {
     localization: _localization.default[localization],
-    rows: rowsState,
+    rows: rows,
+    filteredRows: filteredRows,
+    pageRows: pageRows,
     totalrows: rows,
     columns: columnsState,
-    filters: filtersState,
+    filters: activeFilters,
     density: density,
-    sort: sortState,
+    sort: activeSort,
     page: page,
     pageSize: pageSize,
     onPageChange: onPageChange,
     onPageSizeChange: onPageSizeChange,
     onColumnsChange: onColumnsChange,
-    onFiltersChange: onFiltersChange,
+    onFilterChange: onFilterChange,
     onDensityChange: setDensity,
     onSortChange: onSortChange,
+    onExport: onExport,
     onAddClick: onAddClick,
     onRowClick: onRowClick
   });
@@ -118,7 +153,7 @@ Gridler.propTypes = {
   localization: _propTypes.default.oneOf(['deDE']),
   rows: _propTypes.default.arrayOf(_propTypes.default.shape()).isRequired,
   columns: _propTypes.default.arrayOf(_propTypes.default.shape()).isRequired,
-  filters: _propTypes.default.arrayOf(_propTypes.default.shape()),
+  filters: _propTypes.default.shape(),
   sort: _propTypes.default.arrayOf(_propTypes.default.shape({
     field: _propTypes.default.string.isRequired,
     order: _propTypes.default.oneOf([ASC, DESC]).isRequired
@@ -128,7 +163,7 @@ Gridler.propTypes = {
 };
 Gridler.defaultProps = {
   localization: 'deDE',
-  filters: undefined,
+  filters: {},
   sort: undefined,
   onAddClick: undefined,
   onRowClick: undefined

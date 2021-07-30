@@ -15,15 +15,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function Rows(_ref) {
   let {
-    rows,
+    pageRows,
     columns,
     density,
-    // filters,
-    // sort,
     onRowClick
   } = _ref;
-  return rows // .filter((column) => !column.hidden)
-  .map(row => /*#__PURE__*/_react.default.createElement(_Row.default, {
+  return pageRows.map(row => /*#__PURE__*/_react.default.createElement(_Row.default, {
     key: row.id || row,
     row: row,
     columns: columns,
@@ -33,16 +30,11 @@ function Rows(_ref) {
 }
 
 Rows.propTypes = {
-  rows: _propTypes.default.arrayOf(_propTypes.default.shape()).isRequired,
+  pageRows: _propTypes.default.arrayOf(_propTypes.default.shape()).isRequired,
   columns: _propTypes.default.arrayOf(_propTypes.default.shape()).isRequired,
   density: _propTypes.default.string.isRequired,
-  // filters: PropTypes.arrayOf(PropTypes.shape()),
-  // sort: PropTypes.shape(),
-  // filters: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   onRowClick: _propTypes.default.func
 };
 Rows.defaultProps = {
-  // filters: undefined,
-  // sort: undefined,
   onRowClick: undefined
 };

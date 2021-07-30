@@ -76,8 +76,8 @@ function Toolbar(_ref) {
 Toolbar.propTypes = {
   localization: _propTypes.default.shape().isRequired,
   columns: _propTypes.default.arrayOf(_propTypes.default.shape()).isRequired,
-  filters: _propTypes.default.arrayOf(_propTypes.default.shape()),
-  density: _propTypes.default.arrayOf(_propTypes.default.shape()).isRequired,
+  filters: _propTypes.default.shape(),
+  density: _propTypes.default.string.isRequired,
   onColumnsChange: _propTypes.default.func.isRequired,
   onFilterChange: _propTypes.default.func.isRequired,
   onDensityChange: _propTypes.default.func.isRequired,
