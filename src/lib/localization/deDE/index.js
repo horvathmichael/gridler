@@ -19,8 +19,11 @@ export default {
       button: 'Export',
     },
   },
+  data: {
+    nodata: 'Keine Einträge gefunden!',
+  },
   footer: {
-    sum: 'Gesamt',
+    rows: 'Zeilen',
     page: 'Seite',
     pageSize: 'Zeilen pro Seite',
   },

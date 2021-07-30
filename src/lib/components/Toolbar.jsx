@@ -67,8 +67,8 @@ export default function Toolbar({
 Toolbar.propTypes = {
   localization: PropTypes.shape().isRequired,
   columns: PropTypes.arrayOf(PropTypes.shape()).isRequired,
-  filters: PropTypes.arrayOf(PropTypes.shape()),
-  density: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  filters: PropTypes.shape(),
+  density: PropTypes.string.isRequired,
   onColumnsChange: PropTypes.func.isRequired,
   onFilterChange: PropTypes.func.isRequired,
   onDensityChange: PropTypes.func.isRequired,

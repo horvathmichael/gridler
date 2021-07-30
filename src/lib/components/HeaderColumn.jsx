@@ -34,10 +34,10 @@ export default function HeaderColumn({ column, sort, onSortChange }) {
   };
 
   const renderHeader = () => {
-    if (sort && sort.field === column.field) {
+    if (sort && sort.column === column) {
       return (
         <Box display="flex">
-          <Typography>
+          <Typography color="primary" variant="h6">
             {column.headerName}
           </Typography>
           {sort.order === 'asc'
@@ -48,7 +48,7 @@ export default function HeaderColumn({ column, sort, onSortChange }) {
       );
     }
     return (
-      <Typography>{column.headerName}</Typography>
+      <Typography color="primary" variant="h6">{column.headerName}</Typography>
     );
   };
 
@@ -70,7 +70,7 @@ HeaderColumn.propTypes = {
     renderHeader: PropTypes.func,
   }).isRequired,
   sort: PropTypes.shape({
-    field: PropTypes.string,
+    column: PropTypes.shape({}),
     order: PropTypes.string,
   }),
   onSortChange: PropTypes.func.isRequired,

@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Footer({
   localization,
   rows,
+  filteredRows,
   page,
   pageSize,
   onPageChange,
@@ -36,10 +37,10 @@ export default function Footer({
   const classes = useStyles();
   const countPages = () => {
     const pages = [];
-    for (let index = 1; index <= (rows.length / pageSize); index += 1) {
+    for (let index = 1; index <= (filteredRows.length / pageSize); index += 1) {
       pages.push(`${index}`);
     }
-    if (rows.length % pageSize > 0) {
+    if (filteredRows.length % pageSize > 0) {
       pages.push(`${pages.length + 1}`);
     }
     return pages;
@@ -48,7 +49,7 @@ export default function Footer({
   return (
     <div className={classes.footer}>
       <Typography className={classes.text}>
-        {`${localization.sum}: ${rows.length}`}
+        {`${localization.rows}: ${filteredRows.length} / ${rows.length}`}
       </Typography>
       <div className={classes.flexGrow} />
       <Autocomplete
@@ -83,13 +84,16 @@ export default function Footer({
         options={countPages()}
         onChange={onPageChange}
         disableClearable
-        renderInput={(params) => (
-          <TextField
+        renderInput={(params) => {
+          const lastPage = countPages()[countPages().length - 1] || 1;
+          return (
+            <TextField
             // eslint-disable-next-line react/jsx-props-no-spreading
-            {...params}
-            label={`${localization.page}: `}
-          />
-        )}
+              {...params}
+              label={`${localization.page} (${params.inputProps.value}/${lastPage}): `}
+            />
+          );
+        }}
         renderOption={(option, { selected }) => (
           selected ? (
             <Box style={{ width: '100%' }} display="flex" justify="center">
@@ -100,7 +104,7 @@ export default function Footer({
           )
         )}
       />
-      {page < (rows.length / pageSize) && (
+      {page < (filteredRows.length / pageSize) && (
         <Button onClick={() => onPageChange(undefined, `${page + 1}`)}><ArrowRightIcon /></Button>
       )}
     </div>
@@ -109,11 +113,12 @@ export default function Footer({
 
 Footer.propTypes = {
   localization: PropTypes.shape({
-    sum: PropTypes.string.isRequired,
+    rows: PropTypes.string.isRequired,
     page: PropTypes.string.isRequired,
     pageSize: PropTypes.string.isRequired,
   }).isRequired,
   rows: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  filteredRows: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   page: PropTypes.number.isRequired,
   pageSize: PropTypes.number.isRequired,
   onPageChange: PropTypes.func.isRequired,

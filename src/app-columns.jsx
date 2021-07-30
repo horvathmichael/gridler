@@ -4,7 +4,6 @@ import { ProfileIcon } from './lib/components/Icons';
 
 const avatarRenderHeader = () => <ProfileIcon />;
 const avatarRenderCell = ({ row }) => <span>{`${row.firstname.substr(0, 1)}${row.lastname.substr(0, 1)}`}</span>;
-const nameValueGetter = ({ row }) => <span>{`${row.firstname} ${row.lastname}`}</span>;
 
 export default [
   {
@@ -20,9 +19,12 @@ export default [
     headerName: 'Email',
     width: 250,
   }, {
-    field: 'name',
-    headerName: 'Name',
-    valueGetter: nameValueGetter,
+    field: 'firstname',
+    headerName: 'Vorname',
+    width: 200,
+  }, {
+    field: 'lastname',
+    headerName: 'Nachname',
     width: 200,
   }, {
     field: 'active',

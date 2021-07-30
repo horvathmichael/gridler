@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
-import { makeStyles } from '@material-ui/core';
+import { makeStyles, Typography } from '@material-ui/core';
 
 import Toolbar from './Toolbar';
 import Header from './Header';
@@ -16,8 +16,17 @@ const useStyles = makeStyles(() => ({
     flexDirection: 'column',
     flexGrow: 1,
     flexWrap: 'nowrap',
-    overflowX: 'auto',
     position: 'relative',
+  },
+  data: {
+    overflow: 'auto',
+    minHeight: '100px',
+    maxHeight: ({ height }) => `${height}px`,
+  },
+  nodata: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginTop: '40px',
   },
 }));
 
@@ -25,7 +34,8 @@ export default function DataGrid({
   localization,
   height,
   rows,
-  totalrows,
+  filteredRows,
+  pageRows,
   columns,
   filters,
   density,
@@ -35,13 +45,14 @@ export default function DataGrid({
   onPageChange,
   onPageSizeChange,
   onColumnsChange,
-  onFiltersChange,
+  onFilterChange,
   onDensityChange,
   onSortChange,
+  onExport,
   onAdd,
   onRowClick,
 }) {
-  const classes = useStyles();
+  const classes = useStyles({ height });
 
   return (
     <div>
@@ -51,34 +62,38 @@ export default function DataGrid({
         filters={filters}
         density={density}
         onColumnsChange={onColumnsChange}
-        onFiltersChange={onFiltersChange}
+        onFilterChange={onFilterChange}
         onDensityChange={onDensityChange}
+        onExport={onExport}
         onAdd={onAdd}
       />
       <Paper>
         <div className={classes.main}>
-          <Header
-            columns={columns}
-            filters={filters}
-            sort={sort}
-            onSortChange={onSortChange}
-          />
-          <Divider />
-          <div style={{ maxHeight: `${height}px`, overflow: 'auto' }}>
-            <Rows
-              rows={rows}
+          <div className={classes.data}>
+            <Header
               columns={columns}
-              density={density}
               filters={filters}
               sort={sort}
-              onRowClick={onRowClick}
+              onSortChange={onSortChange}
             />
-
+            {pageRows.length > 0 ? (
+              <Rows
+                pageRows={pageRows}
+                columns={columns}
+                density={density}
+                onRowClick={onRowClick}
+              />
+            ) : (
+              <div className={classes.nodata}>
+                <Typography>{localization.data.nodata}</Typography>
+              </div>
+            )}
           </div>
           <Divider />
           <Footer
             localization={localization.footer}
-            rows={totalrows}
+            rows={rows}
+            filteredRows={filteredRows}
             page={page}
             pageSize={pageSize}
             onPageChange={onPageChange}
@@ -93,31 +108,35 @@ export default function DataGrid({
 DataGrid.propTypes = {
   localization: PropTypes.shape({
     toolbar: PropTypes.shape({}).isRequired,
+    data: PropTypes.shape({
+      nodata: PropTypes.string.isRequired,
+    }).isRequired,
     footer: PropTypes.shape({}).isRequired,
   }).isRequired,
   rows: PropTypes.arrayOf(PropTypes.shape()).isRequired,
-  totalrows: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  filteredRows: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  pageRows: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   columns: PropTypes.arrayOf(PropTypes.shape()).isRequired,
-  filters: PropTypes.arrayOf(PropTypes.shape()),
+  filters: PropTypes.shape().isRequired,
   density: PropTypes.string.isRequired,
   sort: PropTypes.shape(),
   height: PropTypes.number,
   page: PropTypes.number.isRequired,
   pageSize: PropTypes.number.isRequired,
   onColumnsChange: PropTypes.func.isRequired,
-  onFiltersChange: PropTypes.func.isRequired,
+  onFilterChange: PropTypes.func.isRequired,
   onDensityChange: PropTypes.func.isRequired,
   onSortChange: PropTypes.func.isRequired,
   onPageChange: PropTypes.func.isRequired,
   onPageSizeChange: PropTypes.func.isRequired,
+  onExport: PropTypes.func.isRequired,
   onAdd: PropTypes.func,
   onRowClick: PropTypes.func,
 };
 
 DataGrid.defaultProps = {
-  filters: undefined,
   sort: undefined,
   onAdd: undefined,
   onRowClick: undefined,
-  height: 500,
+  height: 600,
 };

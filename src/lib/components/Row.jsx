@@ -13,11 +13,9 @@ const densities = {
 const useStyles = makeStyles((theme) => ({
   row: {
     display: 'flex',
-    justifyContent: 'center',
     flexWrap: 'nowrap',
     paddingBottom: ({ density }) => theme.spacing(densities[density]),
     paddingTop: ({ density }) => theme.spacing(densities[density]),
-    overflowX: 'auto',
     '&:hover': {
       backgroundColor: theme.palette.action.hover,
       cursor: ({ onClick }) => (onClick ? 'pointer' : 'default'),

@@ -8,8 +8,8 @@ const useStyles = makeStyles((theme) => ({
   header: {
     padding: theme.spacing(1),
     display: 'flex',
-    justifyContent: 'center',
     flexWrap: 'nowrap',
+    borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
   },
 }));
 
