@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = DataGridHeader;
+exports.default = Header;
 
 require("core-js/modules/es.array.sort.js");
 
@@ -13,7 +13,7 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _core = require("@material-ui/core");
 
-var _DataGridHeaderColumn = _interopRequireDefault(require("./DataGridHeaderColumn"));
+var _HeaderColumn = _interopRequireDefault(require("./HeaderColumn"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -26,7 +26,7 @@ const useStyles = (0, _core.makeStyles)(theme => ({
   }
 }));
 
-function DataGridHeader(_ref) {
+function Header(_ref) {
   let {
     columns,
     sort,
@@ -35,7 +35,7 @@ function DataGridHeader(_ref) {
   const classes = useStyles();
   return /*#__PURE__*/_react.default.createElement("div", {
     className: classes.header
-  }, columns.filter(column => !column.hidden).map(column => /*#__PURE__*/_react.default.createElement(_DataGridHeaderColumn.default, {
+  }, columns.filter(column => !column.hidden).map(column => /*#__PURE__*/_react.default.createElement(_HeaderColumn.default, {
     key: column.field,
     column: column,
     sort: sort,
@@ -43,12 +43,12 @@ function DataGridHeader(_ref) {
   })));
 }
 
-DataGridHeader.propTypes = {
+Header.propTypes = {
   columns: _propTypes.default.arrayOf(_propTypes.default.shape()).isRequired,
   sort: _propTypes.default.shape(),
   onSortChange: _propTypes.default.func.isRequired // filters: PropTypes.arrayOf(PropTypes.shape()).isRequired,
 
 };
-DataGridHeader.defaultProps = {
+Header.defaultProps = {
   sort: undefined
 };

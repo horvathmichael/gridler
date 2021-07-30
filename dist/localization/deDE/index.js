@@ -26,7 +26,9 @@ var _default = {
     }
   },
   footer: {
-    sum: 'Gesamt'
+    sum: 'Gesamt',
+    page: 'Seite',
+    pageSize: 'Zeilen pro Seite'
   }
 };
 exports.default = _default;

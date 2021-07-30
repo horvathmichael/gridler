@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = DataGridToolbarExport;
+exports.default = ToolbarExport;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -23,7 +23,7 @@ const useStyles = (0, _core.makeStyles)(theme => ({
   }
 }));
 
-function DataGridToolbarExport(_ref) {
+function ToolbarExport(_ref) {
   let {
     localization,
     onAdd
@@ -37,7 +37,7 @@ function DataGridToolbarExport(_ref) {
   }), localization.button));
 }
 
-DataGridToolbarExport.propTypes = {
+ToolbarExport.propTypes = {
   localization: _propTypes.default.shape({
     button: _propTypes.default.string.isRequired
   }).isRequired,

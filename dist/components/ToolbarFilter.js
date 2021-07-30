@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = DataGridToolbarFilter;
+exports.default = ToolbarFilter;
 
 require("core-js/modules/web.dom-collections.iterator.js");
 
@@ -42,7 +42,7 @@ const useStyles = (0, _core.makeStyles)(theme => ({
   }
 }));
 
-function DataGridToolbarFilter(_ref) {
+function ToolbarFilter(_ref) {
   let {
     localization,
     columns,
@@ -97,7 +97,7 @@ function DataGridToolbarFilter(_ref) {
   })))));
 }
 
-DataGridToolbarFilter.propTypes = {
+ToolbarFilter.propTypes = {
   localization: _propTypes.default.shape({
     button: _propTypes.default.string.isRequired
   }).isRequired,
@@ -105,6 +105,6 @@ DataGridToolbarFilter.propTypes = {
   filters: _propTypes.default.PropTypes.shape(),
   onFiltersChange: _propTypes.default.func.isRequired
 };
-DataGridToolbarFilter.defaultProps = {
+ToolbarFilter.defaultProps = {
   filters: {}
 };

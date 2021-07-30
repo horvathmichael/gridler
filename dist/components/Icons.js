@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.NoIcon = exports.YesIcon = exports.DensityIcon = exports.ColumnIcon = exports.FailedIcon = exports.DoneIcon = exports.InProgressIcon = exports.PendingIcon = exports.DeleteIcon = exports.KeyIcon = exports.HelpIcon = exports.LockIcon = exports.ImportIcon = exports.UsersIcon = exports.LogoutIcon = exports.AdminIcon = exports.ProfileIcon = exports.DownloadIcon = exports.MenuIcon = exports.ClearIcon = exports.SettingsIcon = exports.SortDescIcon = exports.SortAscIcon = exports.SortIcon = exports.FilterIcon = exports.SaveIcon = exports.AddIcon = exports.ExpandIcon = exports.DarkThemeIcon = exports.LightThemeIcon = exports.SearchIcon = exports.NotificationsIcon = exports.SmartphoneIcon = exports.TabletSmallIcon = exports.TabletBigIcon = exports.NotebookIcon = exports.LaptopIcon = exports.DesktopIcon = void 0;
+exports.ArrowRightIcon = exports.ArrowLeftIcon = exports.NoIcon = exports.YesIcon = exports.DensityIcon = exports.ColumnIcon = exports.FailedIcon = exports.DoneIcon = exports.InProgressIcon = exports.PendingIcon = exports.DeleteIcon = exports.KeyIcon = exports.HelpIcon = exports.LockIcon = exports.ImportIcon = exports.UsersIcon = exports.LogoutIcon = exports.AdminIcon = exports.ProfileIcon = exports.DownloadIcon = exports.MenuIcon = exports.ClearIcon = exports.SettingsIcon = exports.SortDescIcon = exports.SortAscIcon = exports.SortIcon = exports.FilterIcon = exports.SaveIcon = exports.AddIcon = exports.ExpandIcon = exports.DarkThemeIcon = exports.LightThemeIcon = exports.SearchIcon = exports.NotificationsIcon = exports.SmartphoneIcon = exports.TabletSmallIcon = exports.TabletBigIcon = exports.NotebookIcon = exports.LaptopIcon = exports.DesktopIcon = void 0;
 
 var _ExpandMore = _interopRequireDefault(require("@material-ui/icons/ExpandMore"));
 
@@ -64,6 +64,10 @@ var _Sort = _interopRequireDefault(require("@material-ui/icons/Sort"));
 var _ArrowDownward = _interopRequireDefault(require("@material-ui/icons/ArrowDownward"));
 
 var _ArrowUpward = _interopRequireDefault(require("@material-ui/icons/ArrowUpward"));
+
+var _ArrowLeft = _interopRequireDefault(require("@material-ui/icons/ArrowLeft"));
+
+var _ArrowRight = _interopRequireDefault(require("@material-ui/icons/ArrowRight"));
 
 var _Notifications = _interopRequireDefault(require("@material-ui/icons/Notifications"));
 
@@ -155,3 +159,7 @@ const YesIcon = _Check.default;
 exports.YesIcon = YesIcon;
 const NoIcon = _Clear.default;
 exports.NoIcon = NoIcon;
+const ArrowLeftIcon = _ArrowLeft.default;
+exports.ArrowLeftIcon = ArrowLeftIcon;
+const ArrowRightIcon = _ArrowRight.default;
+exports.ArrowRightIcon = ArrowRightIcon;

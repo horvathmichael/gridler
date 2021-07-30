@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = DataGridToolbarColumns;
+exports.default = ToolbarDensity;
 
 require("core-js/modules/web.dom-collections.iterator.js");
 
@@ -15,11 +15,9 @@ var _core = require("@material-ui/core");
 
 var _Button = _interopRequireDefault(require("@material-ui/core/Button"));
 
-var _Popover = _interopRequireDefault(require("@material-ui/core/Popover"));
+var _Menu = _interopRequireDefault(require("@material-ui/core/Menu"));
 
-var _FormControlLabel = _interopRequireDefault(require("@material-ui/core/FormControlLabel"));
-
-var _Switch = _interopRequireDefault(require("@material-ui/core/Switch"));
+var _MenuItem = _interopRequireDefault(require("@material-ui/core/MenuItem"));
 
 var _Icons = require("./Icons");
 
@@ -33,17 +31,23 @@ const useStyles = (0, _core.makeStyles)(theme => ({
   icon: {
     marginRight: theme.spacing(1)
   },
-  switch: {
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2)
+  menuitem: {
+    padding: theme.spacing(1),
+    width: theme.spacing(15)
+  },
+  selected: {
+    padding: theme.spacing(1),
+    color: theme.palette.primary.main,
+    width: theme.spacing(15)
   }
 }));
+const densities = ['compact', 'standard', 'comfortable'];
 
-function DataGridToolbarColumns(_ref) {
+function ToolbarDensity(_ref) {
   let {
-    columns,
     localization,
-    onColumnsChange
+    density,
+    onDensityChange
   } = _ref;
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = (0, _react.useState)();
@@ -55,9 +59,9 @@ function DataGridToolbarColumns(_ref) {
   return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_Button.default, {
     color: "primary",
     onClick: onMenuOpen
-  }, /*#__PURE__*/_react.default.createElement(_Icons.ColumnIcon, {
+  }, /*#__PURE__*/_react.default.createElement(_Icons.DensityIcon, {
     className: classes.icon
-  }), localization.button), /*#__PURE__*/_react.default.createElement(_Popover.default, {
+  }), localization.button), /*#__PURE__*/_react.default.createElement(_Menu.default, {
     getContentAnchorEl: null,
     anchorEl: anchorEl,
     anchorOrigin: {
@@ -70,24 +74,17 @@ function DataGridToolbarColumns(_ref) {
     },
     open: Boolean(anchorEl),
     onClose: onMenuClose
-  }, columns.map(column => /*#__PURE__*/_react.default.createElement("div", {
-    className: classes.switch,
-    key: column.field
-  }, /*#__PURE__*/_react.default.createElement(_FormControlLabel.default, {
-    label: column.headerName,
-    control: /*#__PURE__*/_react.default.createElement(_Switch.default, {
-      color: "primary",
-      checked: !column.hidden,
-      onChange: () => onColumnsChange(column),
-      name: column.field
-    })
-  })))));
+  }, densities.map(item => /*#__PURE__*/_react.default.createElement(_MenuItem.default, {
+    key: item,
+    className: item === density ? classes.selected : classes.menuitem,
+    onClick: () => onDensityChange(item)
+  }, localization[item]))));
 }
 
-DataGridToolbarColumns.propTypes = {
+ToolbarDensity.propTypes = {
   localization: _propTypes.default.shape({
     button: _propTypes.default.string.isRequired
   }).isRequired,
-  columns: _propTypes.default.arrayOf(_propTypes.default.shape()).isRequired,
-  onColumnsChange: _propTypes.default.func.isRequired
+  density: _propTypes.default.string.isRequired,
+  onDensityChange: _propTypes.default.func.isRequired
 };

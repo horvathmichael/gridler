@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = DataGridHeaderColumn;
+exports.default = HeaderColumn;
 
 require("core-js/modules/es.array.sort.js");
 
@@ -30,7 +30,7 @@ const useStyles = (0, _core.makeStyles)(theme => ({
       let {
         width
       } = _ref;
-      return width || '150px';
+      return "".concat(width, "px") || '150px';
     },
     '&:hover': {
       cursor: _ref2 => {
@@ -46,7 +46,7 @@ const useStyles = (0, _core.makeStyles)(theme => ({
   }
 }));
 
-function DataGridHeaderColumn(_ref3) {
+function HeaderColumn(_ref3) {
   let {
     column,
     sort,
@@ -83,11 +83,11 @@ function DataGridHeaderColumn(_ref3) {
   }, column.renderHeader ? column.renderHeader() : renderHeader());
 }
 
-DataGridHeaderColumn.propTypes = {
+HeaderColumn.propTypes = {
   column: _propTypes.default.shape({
     field: _propTypes.default.string,
     headerName: _propTypes.default.string,
-    width: _propTypes.default.string,
+    width: _propTypes.default.number,
     sortable: _propTypes.default.bool,
     renderHeader: _propTypes.default.func
   }).isRequired,
@@ -97,6 +97,6 @@ DataGridHeaderColumn.propTypes = {
   }),
   onSortChange: _propTypes.default.func.isRequired
 };
-DataGridHeaderColumn.defaultProps = {
+HeaderColumn.defaultProps = {
   sort: undefined
 };

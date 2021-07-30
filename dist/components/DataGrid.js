@@ -17,13 +17,13 @@ var _Divider = _interopRequireDefault(require("@material-ui/core/Divider"));
 
 var _core = require("@material-ui/core");
 
-var _DataGridToolbar = _interopRequireDefault(require("./DataGridToolbar"));
+var _Toolbar = _interopRequireDefault(require("./Toolbar"));
 
-var _DataGridHeader = _interopRequireDefault(require("./DataGridHeader"));
+var _Header = _interopRequireDefault(require("./Header"));
 
-var _DataGridRows = _interopRequireDefault(require("./DataGridRows"));
+var _Rows = _interopRequireDefault(require("./Rows"));
 
-var _DataGridFooter = _interopRequireDefault(require("./DataGridFooter"));
+var _Footer = _interopRequireDefault(require("./Footer"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -42,11 +42,17 @@ const useStyles = (0, _core.makeStyles)(() => ({
 function DataGrid(_ref) {
   let {
     localization,
+    height,
     rows,
+    totalrows,
     columns,
     filters,
     density,
     sort,
+    page,
+    pageSize,
+    onPageChange,
+    onPageSizeChange,
     onColumnsChange,
     onFiltersChange,
     onDensityChange,
@@ -55,7 +61,7 @@ function DataGrid(_ref) {
     onRowClick
   } = _ref;
   const classes = useStyles();
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_DataGridToolbar.default, {
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_Toolbar.default, {
     localization: localization.toolbar,
     columns: columns,
     filters: filters,
@@ -66,20 +72,30 @@ function DataGrid(_ref) {
     onAdd: onAdd
   }), /*#__PURE__*/_react.default.createElement(_Paper.default, null, /*#__PURE__*/_react.default.createElement("div", {
     className: classes.main
-  }, /*#__PURE__*/_react.default.createElement(_DataGridHeader.default, {
+  }, /*#__PURE__*/_react.default.createElement(_Header.default, {
     columns: columns,
     filters: filters,
     sort: sort,
     onSortChange: onSortChange
-  }), /*#__PURE__*/_react.default.createElement(_Divider.default, null), /*#__PURE__*/_react.default.createElement(_DataGridRows.default, {
+  }), /*#__PURE__*/_react.default.createElement(_Divider.default, null), /*#__PURE__*/_react.default.createElement("div", {
+    style: {
+      maxHeight: "".concat(height, "px"),
+      overflow: 'auto'
+    }
+  }, /*#__PURE__*/_react.default.createElement(_Rows.default, {
     rows: rows,
     columns: columns,
+    density: density,
     filters: filters,
     sort: sort,
     onRowClick: onRowClick
-  }), /*#__PURE__*/_react.default.createElement(_Divider.default, null), /*#__PURE__*/_react.default.createElement(_DataGridFooter.default, {
+  })), /*#__PURE__*/_react.default.createElement(_Divider.default, null), /*#__PURE__*/_react.default.createElement(_Footer.default, {
     localization: localization.footer,
-    rows: rows
+    rows: totalrows,
+    page: page,
+    pageSize: pageSize,
+    onPageChange: onPageChange,
+    onPageSizeChange: onPageSizeChange
   }))));
 }
 
@@ -89,50 +105,27 @@ DataGrid.propTypes = {
     footer: _propTypes.default.shape({}).isRequired
   }).isRequired,
   rows: _propTypes.default.arrayOf(_propTypes.default.shape()).isRequired,
+  totalrows: _propTypes.default.arrayOf(_propTypes.default.shape()).isRequired,
   columns: _propTypes.default.arrayOf(_propTypes.default.shape()).isRequired,
-  filters: _propTypes.default.arrayOf(_propTypes.default.shape()).isRequired,
+  filters: _propTypes.default.arrayOf(_propTypes.default.shape()),
   density: _propTypes.default.string.isRequired,
   sort: _propTypes.default.shape(),
+  height: _propTypes.default.number,
+  page: _propTypes.default.number.isRequired,
+  pageSize: _propTypes.default.number.isRequired,
   onColumnsChange: _propTypes.default.func.isRequired,
   onFiltersChange: _propTypes.default.func.isRequired,
   onDensityChange: _propTypes.default.func.isRequired,
   onSortChange: _propTypes.default.func.isRequired,
+  onPageChange: _propTypes.default.func.isRequired,
+  onPageSizeChange: _propTypes.default.func.isRequired,
   onAdd: _propTypes.default.func,
   onRowClick: _propTypes.default.func
 };
 DataGrid.defaultProps = {
+  filters: undefined,
   sort: undefined,
   onAdd: undefined,
-  onRowClick: undefined
-}; // {
-//         field: 'avatar',
-//         headerName: localization.users.fields.avatar,
-//         renderHeader: avatarRenderHeader,
-//         renderCell: avatarRenderCell,
-//         width: 70,
-//         sortable: false,
-//         filterable: false,
-//         // disableColumnMenu: true,
-//       }, {
-//         field: 'email',
-//         headerName: localization.users.fields.email,
-//         flex: true,
-//       }, {
-//         field: 'firstname',
-//         headerName: localization.users.fields.firstname,
-//         flex: true,
-//       }, {
-//         field: 'lastname',
-//         headerName: localization.users.fields.lastname,
-//         flex: true,
-//       }, {
-//         field: 'role',
-//         headerName: localization.users.fields.role,
-//         flex: true,
-//         valueGetter: roleValueGetter,
-//       }, {
-//         field: 'active',
-//         headerName: localization.users.fields.active,
-//         width: 110,
-//         type: 'boolean',
-//       },
+  onRowClick: undefined,
+  height: 500
+};

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = DataGridRowColumn;
+exports.default = RowColumn;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -21,14 +21,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 const useStyles = (0, _core.makeStyles)(theme => ({
   column: {
-    padding: theme.spacing(1),
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
     verticalAlign: 'middle',
     maxWidth: 'unset',
     minWidth: _ref => {
       let {
         width
       } = _ref;
-      return width || '150px';
+      return "".concat(width, "px") || '150px';
     }
   },
   icon: {
@@ -36,7 +37,7 @@ const useStyles = (0, _core.makeStyles)(theme => ({
   }
 }));
 
-function DataGridRowColumn(_ref2) {
+function RowColumn(_ref2) {
   let {
     column,
     row,
@@ -78,10 +79,10 @@ function DataGridRowColumn(_ref2) {
   }, renderCell());
 }
 
-DataGridRowColumn.propTypes = {
+RowColumn.propTypes = {
   column: _propTypes.default.shape({
     field: _propTypes.default.string,
-    width: _propTypes.default.string,
+    width: _propTypes.default.number,
     type: _propTypes.default.string,
     renderCell: _propTypes.default.func,
     valueGetter: _propTypes.default.func
@@ -89,6 +90,6 @@ DataGridRowColumn.propTypes = {
   row: _propTypes.default.shape({}).isRequired,
   onClick: _propTypes.default.func
 };
-DataGridRowColumn.defaultProps = {
+RowColumn.defaultProps = {
   onClick: undefined
 };
