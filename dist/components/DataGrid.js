@@ -25,6 +25,8 @@ var _Rows = _interopRequireDefault(require("./Rows"));
 
 var _Footer = _interopRequireDefault(require("./Footer"));
 
+var _jsxRuntime = require("react/jsx-runtime");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const useStyles = (0, _core.makeStyles)(() => ({
@@ -79,41 +81,50 @@ function DataGrid(_ref2) {
   const classes = useStyles({
     height
   });
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_Toolbar.default, {
-    localization: localization.toolbar,
-    columns: columns,
-    filters: filters,
-    density: density,
-    onColumnsChange: onColumnsChange,
-    onFilterChange: onFilterChange,
-    onDensityChange: onDensityChange,
-    onExport: onExport,
-    onAdd: onAdd
-  }), /*#__PURE__*/_react.default.createElement(_Paper.default, null, /*#__PURE__*/_react.default.createElement("div", {
-    className: classes.main
-  }, /*#__PURE__*/_react.default.createElement("div", {
-    className: classes.data
-  }, /*#__PURE__*/_react.default.createElement(_Header.default, {
-    columns: columns,
-    filters: filters,
-    sort: sort,
-    onSortChange: onSortChange
-  }), pageRows.length > 0 ? /*#__PURE__*/_react.default.createElement(_Rows.default, {
-    pageRows: pageRows,
-    columns: columns,
-    density: density,
-    onRowClick: onRowClick
-  }) : /*#__PURE__*/_react.default.createElement("div", {
-    className: classes.nodata
-  }, /*#__PURE__*/_react.default.createElement(_core.Typography, null, localization.data.nodata))), /*#__PURE__*/_react.default.createElement(_Divider.default, null), /*#__PURE__*/_react.default.createElement(_Footer.default, {
-    localization: localization.footer,
-    rows: rows,
-    filteredRows: filteredRows,
-    page: page,
-    pageSize: pageSize,
-    onPageChange: onPageChange,
-    onPageSizeChange: onPageSizeChange
-  }))));
+  return /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
+    children: [/*#__PURE__*/(0, _jsxRuntime.jsx)(_Toolbar.default, {
+      localization: localization.toolbar,
+      columns: columns,
+      filters: filters,
+      density: density,
+      onColumnsChange: onColumnsChange,
+      onFilterChange: onFilterChange,
+      onDensityChange: onDensityChange,
+      onExport: onExport,
+      onAdd: onAdd
+    }), /*#__PURE__*/(0, _jsxRuntime.jsx)(_Paper.default, {
+      children: /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
+        className: classes.main,
+        children: [/*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
+          className: classes.data,
+          children: [/*#__PURE__*/(0, _jsxRuntime.jsx)(_Header.default, {
+            columns: columns,
+            filters: filters,
+            sort: sort,
+            onSortChange: onSortChange
+          }), pageRows.length > 0 ? /*#__PURE__*/(0, _jsxRuntime.jsx)(_Rows.default, {
+            pageRows: pageRows,
+            columns: columns,
+            density: density,
+            onRowClick: onRowClick
+          }) : /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+            className: classes.nodata,
+            children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_core.Typography, {
+              children: localization.data.nodata
+            })
+          })]
+        }), /*#__PURE__*/(0, _jsxRuntime.jsx)(_Divider.default, {}), /*#__PURE__*/(0, _jsxRuntime.jsx)(_Footer.default, {
+          localization: localization.footer,
+          rows: rows,
+          filteredRows: filteredRows,
+          page: page,
+          pageSize: pageSize,
+          onPageChange: onPageChange,
+          onPageSizeChange: onPageSizeChange
+        })]
+      })
+    })]
+  });
 }
 
 DataGrid.propTypes = {

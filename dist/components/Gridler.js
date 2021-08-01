@@ -16,9 +16,11 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
-var _localization = _interopRequireDefault(require("./localization"));
+var _localization = _interopRequireDefault(require("../localization"));
 
-var _DataGrid = _interopRequireDefault(require("./components/DataGrid"));
+var _DataGrid = _interopRequireDefault(require("./DataGrid"));
+
+var _jsxRuntime = require("react/jsx-runtime");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -82,7 +84,7 @@ function Gridler(_ref) {
       return 0;
     }));
     setPage(1);
-  }, [activeFilters, activeSort]);
+  }, [columns, rows, activeFilters, activeSort]);
   (0, _react.useEffect)(() => setPageRows(filteredRows.slice((page - 1) * pageSize, page * pageSize)), [filteredRows, page, pageSize]);
 
   const onColumnsChange = column => {
@@ -125,7 +127,7 @@ function Gridler(_ref) {
     alert('Der Export befindet sich in Entwicklung');
   };
 
-  return /*#__PURE__*/_react.default.createElement(_DataGrid.default, {
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(_DataGrid.default, {
     localization: _localization.default[localization],
     rows: rows,
     filteredRows: filteredRows,

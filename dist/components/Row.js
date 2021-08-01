@@ -13,6 +13,8 @@ var _core = require("@material-ui/core");
 
 var _RowColumn = _interopRequireDefault(require("./RowColumn"));
 
+var _jsxRuntime = require("react/jsx-runtime");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const densities = {
@@ -59,14 +61,14 @@ function Row(_ref4) {
     density,
     onClick
   });
-  return /*#__PURE__*/_react.default.createElement("div", {
-    className: classes.row
-  }, columns.filter(column => !column.hidden).map(column => /*#__PURE__*/_react.default.createElement(_RowColumn.default, {
-    key: column.field,
-    row: row,
-    column: column,
-    onClick: onClick
-  })));
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+    className: classes.row,
+    children: columns.filter(column => !column.hidden).map(column => /*#__PURE__*/(0, _jsxRuntime.jsx)(_RowColumn.default, {
+      row: row,
+      column: column,
+      onClick: onClick
+    }, column.field))
+  });
 }
 
 Row.propTypes = {

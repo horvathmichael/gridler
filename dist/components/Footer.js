@@ -5,8 +5,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = Footer;
 
-require("core-js/modules/es.object.assign.js");
-
 var _react = _interopRequireDefault(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
@@ -25,9 +23,15 @@ var _Autocomplete = _interopRequireDefault(require("@material-ui/lab/Autocomplet
 
 var _Icons = require("./Icons");
 
+var _jsxRuntime = require("react/jsx-runtime");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 const useStyles = (0, _core.makeStyles)(theme => ({
   footer: {
@@ -71,64 +75,70 @@ function Footer(_ref) {
     return pages;
   };
 
-  return /*#__PURE__*/_react.default.createElement("div", {
-    className: classes.footer
-  }, /*#__PURE__*/_react.default.createElement(_Typography.default, {
-    className: classes.text
-  }, "".concat(localization.rows, ": ").concat(filteredRows.length, " / ").concat(rows.length)), /*#__PURE__*/_react.default.createElement("div", {
-    className: classes.flexGrow
-  }), /*#__PURE__*/_react.default.createElement(_Autocomplete.default, {
-    className: classes.autocomplete,
-    value: "".concat(pageSize),
-    options: ['10', '20', '50'],
-    onChange: onPageSizeChange,
-    disableClearable: true,
-    renderInput: params => /*#__PURE__*/_react.default.createElement(_TextField.default // eslint-disable-next-line react/jsx-props-no-spreading
-    , _extends({}, params, {
-      label: "".concat(localization.pageSize, ": ")
-    })),
-    renderOption: (option, _ref2) => {
-      let {
-        selected
-      } = _ref2;
-      return selected ? /*#__PURE__*/_react.default.createElement(_Box.default, {
-        style: {
-          width: '100%'
-        },
-        display: "flex",
-        justify: "center"
-      }, option) : option;
-    }
-  }), page > 1 && /*#__PURE__*/_react.default.createElement(_Button.default, {
-    onClick: () => onPageChange(undefined, "".concat(page - 1))
-  }, /*#__PURE__*/_react.default.createElement(_Icons.ArrowLeftIcon, null)), /*#__PURE__*/_react.default.createElement(_Autocomplete.default, {
-    className: classes.autocomplete,
-    value: "".concat(page),
-    options: countPages(),
-    onChange: onPageChange,
-    disableClearable: true,
-    renderInput: params => {
-      const lastPage = countPages()[countPages().length - 1] || 1;
-      return /*#__PURE__*/_react.default.createElement(_TextField.default // eslint-disable-next-line react/jsx-props-no-spreading
-      , _extends({}, params, {
-        label: "".concat(localization.page, " (").concat(params.inputProps.value, "/").concat(lastPage, "): ")
-      }));
-    },
-    renderOption: (option, _ref3) => {
-      let {
-        selected
-      } = _ref3;
-      return selected ? /*#__PURE__*/_react.default.createElement(_Box.default, {
-        style: {
-          width: '100%'
-        },
-        display: "flex",
-        justify: "center"
-      }, option) : option;
-    }
-  }), page < filteredRows.length / pageSize && /*#__PURE__*/_react.default.createElement(_Button.default, {
-    onClick: () => onPageChange(undefined, "".concat(page + 1))
-  }, /*#__PURE__*/_react.default.createElement(_Icons.ArrowRightIcon, null)));
+  return /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
+    className: classes.footer,
+    children: [/*#__PURE__*/(0, _jsxRuntime.jsx)(_Typography.default, {
+      className: classes.text,
+      children: "".concat(localization.rows, ": ").concat(filteredRows.length, " / ").concat(rows.length)
+    }), /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+      className: classes.flexGrow
+    }), /*#__PURE__*/(0, _jsxRuntime.jsx)(_Autocomplete.default, {
+      className: classes.autocomplete,
+      value: "".concat(pageSize),
+      options: ['10', '20', '50'],
+      onChange: onPageSizeChange,
+      disableClearable: true,
+      renderInput: params => /*#__PURE__*/(0, _jsxRuntime.jsx)(_TextField.default // eslint-disable-next-line react/jsx-props-no-spreading
+      , _objectSpread(_objectSpread({}, params), {}, {
+        label: "".concat(localization.pageSize, ": ")
+      })),
+      renderOption: (option, _ref2) => {
+        let {
+          selected
+        } = _ref2;
+        return selected ? /*#__PURE__*/(0, _jsxRuntime.jsx)(_Box.default, {
+          style: {
+            width: '100%'
+          },
+          display: "flex",
+          justify: "center",
+          children: option
+        }) : option;
+      }
+    }), page > 1 && /*#__PURE__*/(0, _jsxRuntime.jsx)(_Button.default, {
+      onClick: () => onPageChange(undefined, "".concat(page - 1)),
+      children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_Icons.ArrowLeftIcon, {})
+    }), /*#__PURE__*/(0, _jsxRuntime.jsx)(_Autocomplete.default, {
+      className: classes.autocomplete,
+      value: "".concat(page),
+      options: countPages(),
+      onChange: onPageChange,
+      disableClearable: true,
+      renderInput: params => {
+        const lastPage = countPages()[countPages().length - 1] || 1;
+        return /*#__PURE__*/(0, _jsxRuntime.jsx)(_TextField.default // eslint-disable-next-line react/jsx-props-no-spreading
+        , _objectSpread(_objectSpread({}, params), {}, {
+          label: "".concat(localization.page, " (").concat(params.inputProps.value, "/").concat(lastPage, "): ")
+        }));
+      },
+      renderOption: (option, _ref3) => {
+        let {
+          selected
+        } = _ref3;
+        return selected ? /*#__PURE__*/(0, _jsxRuntime.jsx)(_Box.default, {
+          style: {
+            width: '100%'
+          },
+          display: "flex",
+          justify: "center",
+          children: option
+        }) : option;
+      }
+    }), page < filteredRows.length / pageSize && /*#__PURE__*/(0, _jsxRuntime.jsx)(_Button.default, {
+      onClick: () => onPageChange(undefined, "".concat(page + 1)),
+      children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_Icons.ArrowRightIcon, {})
+    })]
+  });
 }
 
 Footer.propTypes = {

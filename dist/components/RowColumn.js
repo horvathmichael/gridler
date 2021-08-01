@@ -17,6 +17,8 @@ var _Box = _interopRequireDefault(require("@material-ui/core/Box"));
 
 var _Icons = require("./Icons");
 
+var _jsxRuntime = require("react/jsx-runtime");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const useStyles = (0, _core.makeStyles)(theme => ({
@@ -67,16 +69,19 @@ function RowColumn(_ref2) {
     }
 
     if (column.type === 'boolean') {
-      return row[column.field] ? /*#__PURE__*/_react.default.createElement(_Icons.YesIcon, null) : /*#__PURE__*/_react.default.createElement(_Icons.NoIcon, null);
+      return row[column.field] ? /*#__PURE__*/(0, _jsxRuntime.jsx)(_Icons.YesIcon, {}) : /*#__PURE__*/(0, _jsxRuntime.jsx)(_Icons.NoIcon, {});
     }
 
-    return /*#__PURE__*/_react.default.createElement(_Typography.default, null, row[column.field]);
+    return /*#__PURE__*/(0, _jsxRuntime.jsx)(_Typography.default, {
+      children: row[column.field]
+    });
   };
 
-  return /*#__PURE__*/_react.default.createElement(_Box.default, {
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(_Box.default, {
     className: classes.column,
-    onClick: onRowColumnClick
-  }, renderCell());
+    onClick: onRowColumnClick,
+    children: renderCell()
+  });
 }
 
 RowColumn.propTypes = {

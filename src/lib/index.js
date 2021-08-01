@@ -1,3 +1,3 @@
-import Gridler from './Gridler';
+import Gridler from './components/Gridler';
 
 export default Gridler;

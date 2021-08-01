@@ -1,7 +1,7 @@
 import React from 'react';
 import Container from '@material-ui/core/Container';
 
-import Gridler from './lib';
+import Gridler from '../lib';
 
 import rows from './app-rows';
 import columns from './app-columns';

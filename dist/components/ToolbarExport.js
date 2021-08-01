@@ -15,6 +15,8 @@ var _Button = _interopRequireDefault(require("@material-ui/core/Button"));
 
 var _Icons = require("./Icons");
 
+var _jsxRuntime = require("react/jsx-runtime");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const useStyles = (0, _core.makeStyles)(theme => ({
@@ -29,12 +31,15 @@ function ToolbarExport(_ref) {
     onExport
   } = _ref;
   const classes = useStyles();
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_Button.default, {
-    color: "primary",
-    onClick: onExport
-  }, /*#__PURE__*/_react.default.createElement(_Icons.DownloadIcon, {
-    className: classes.icon
-  }), localization.button));
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+    children: /*#__PURE__*/(0, _jsxRuntime.jsxs)(_Button.default, {
+      color: "primary",
+      onClick: onExport,
+      children: [/*#__PURE__*/(0, _jsxRuntime.jsx)(_Icons.DownloadIcon, {
+        className: classes.icon
+      }), localization.button]
+    })
+  });
 }
 
 ToolbarExport.propTypes = {

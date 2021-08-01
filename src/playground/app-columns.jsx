@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ProfileIcon } from './lib/components/Icons';
+import { ProfileIcon } from '../lib/components/Icons';
 
 const avatarRenderHeader = () => <ProfileIcon />;
 const avatarRenderCell = ({ row }) => <span>{`${row.firstname.substr(0, 1)}${row.lastname.substr(0, 1)}`}</span>;

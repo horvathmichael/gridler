@@ -11,6 +11,8 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _Row = _interopRequireDefault(require("./Row"));
 
+var _jsxRuntime = require("react/jsx-runtime");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function Rows(_ref) {
@@ -20,13 +22,12 @@ function Rows(_ref) {
     density,
     onRowClick
   } = _ref;
-  return pageRows.map(row => /*#__PURE__*/_react.default.createElement(_Row.default, {
-    key: row.id || row,
+  return pageRows.map(row => /*#__PURE__*/(0, _jsxRuntime.jsx)(_Row.default, {
     row: row,
     columns: columns,
     density: density,
     onClick: onRowClick
-  }));
+  }, row.id || row));
 }
 
 Rows.propTypes = {

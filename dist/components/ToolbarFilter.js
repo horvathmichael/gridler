@@ -27,6 +27,8 @@ var _Badge = _interopRequireDefault(require("@material-ui/core/Badge"));
 
 var _Icons = require("./Icons");
 
+var _jsxRuntime = require("react/jsx-runtime");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
@@ -68,49 +70,54 @@ function ToolbarFilter(_ref) {
     return counter;
   };
 
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_Badge.default, {
-    color: "primary",
-    badgeContent: countFilter()
-  }, /*#__PURE__*/_react.default.createElement(_Button.default, {
-    color: "primary",
-    onClick: onMenuOpen
-  }, /*#__PURE__*/_react.default.createElement(_Icons.FilterIcon, {
-    className: classes.icon
-  }), localization.button)), /*#__PURE__*/_react.default.createElement(_Popover.default, {
-    getContentAnchorEl: null,
-    anchorEl: anchorEl,
-    anchorOrigin: {
-      vertical: 'bottom',
-      horizontal: 'right'
-    },
-    transformOrigin: {
-      vertical: 'top',
-      horizontal: 'right'
-    },
-    open: Boolean(anchorEl),
-    onClose: onMenuClose
-  }, columns.filter(column => column.filterable !== false).map(column => /*#__PURE__*/_react.default.createElement("div", {
-    className: classes.filter,
-    key: column.field
-  }, (column.type === 'text' || !column.type) && /*#__PURE__*/_react.default.createElement(_TextField.default, {
-    color: "primary",
-    name: column.field,
-    label: column.headerName,
-    value: filters[column.field],
-    onChange: event => onFilterChange(column.field, event.target.value),
-    fullWidth: true
-  }), column.type === 'boolean' && /*#__PURE__*/_react.default.createElement(_FormControlLabel.default, {
-    label: column.headerName,
-    control: /*#__PURE__*/_react.default.createElement(_Checkbox.default, {
+  return /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
+    children: [/*#__PURE__*/(0, _jsxRuntime.jsx)(_Badge.default, {
       color: "primary",
-      name: column.field,
-      checked: filters[column.field] === null ? false : filters[column.field],
-      onChange: (event, value) => {
-        onFilterChange(column.field, filters[column.field] === false ? null : value);
+      badgeContent: countFilter(),
+      children: /*#__PURE__*/(0, _jsxRuntime.jsxs)(_Button.default, {
+        color: "primary",
+        onClick: onMenuOpen,
+        children: [/*#__PURE__*/(0, _jsxRuntime.jsx)(_Icons.FilterIcon, {
+          className: classes.icon
+        }), localization.button]
+      })
+    }), /*#__PURE__*/(0, _jsxRuntime.jsx)(_Popover.default, {
+      getContentAnchorEl: null,
+      anchorEl: anchorEl,
+      anchorOrigin: {
+        vertical: 'bottom',
+        horizontal: 'right'
       },
-      indeterminate: filters[column.field] === false
-    })
-  })))));
+      transformOrigin: {
+        vertical: 'top',
+        horizontal: 'right'
+      },
+      open: Boolean(anchorEl),
+      onClose: onMenuClose,
+      children: columns.filter(column => column.filterable !== false).map(column => /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
+        className: classes.filter,
+        children: [(column.type === 'text' || !column.type) && /*#__PURE__*/(0, _jsxRuntime.jsx)(_TextField.default, {
+          color: "primary",
+          name: column.field,
+          label: column.headerName,
+          value: filters[column.field],
+          onChange: event => onFilterChange(column.field, event.target.value),
+          fullWidth: true
+        }), column.type === 'boolean' && /*#__PURE__*/(0, _jsxRuntime.jsx)(_FormControlLabel.default, {
+          label: column.headerName,
+          control: /*#__PURE__*/(0, _jsxRuntime.jsx)(_Checkbox.default, {
+            color: "primary",
+            name: column.field,
+            checked: filters[column.field] === null ? false : filters[column.field],
+            onChange: (event, value) => {
+              onFilterChange(column.field, filters[column.field] === false ? null : value);
+            },
+            indeterminate: filters[column.field] === false
+          })
+        })]
+      }, column.field))
+    })]
+  });
 }
 
 ToolbarFilter.propTypes = {

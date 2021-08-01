@@ -19,6 +19,8 @@ var _Box = _interopRequireDefault(require("@material-ui/core/Box"));
 
 var _Icons = require("./Icons");
 
+var _jsxRuntime = require("react/jsx-runtime");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const useStyles = (0, _core.makeStyles)(theme => ({
@@ -65,28 +67,32 @@ function HeaderColumn(_ref3) {
 
   const renderHeader = () => {
     if (sort && sort.column === column) {
-      return /*#__PURE__*/_react.default.createElement(_Box.default, {
-        display: "flex"
-      }, /*#__PURE__*/_react.default.createElement(_Typography.default, {
-        color: "primary",
-        variant: "h6"
-      }, column.headerName), sort.order === 'asc' ? /*#__PURE__*/_react.default.createElement(_Icons.SortAscIcon, {
-        className: classes.icon
-      }) : /*#__PURE__*/_react.default.createElement(_Icons.SortDescIcon, {
-        className: classes.icon
-      }));
+      return /*#__PURE__*/(0, _jsxRuntime.jsxs)(_Box.default, {
+        display: "flex",
+        children: [/*#__PURE__*/(0, _jsxRuntime.jsx)(_Typography.default, {
+          color: "primary",
+          variant: "h6",
+          children: column.headerName
+        }), sort.order === 'asc' ? /*#__PURE__*/(0, _jsxRuntime.jsx)(_Icons.SortAscIcon, {
+          className: classes.icon
+        }) : /*#__PURE__*/(0, _jsxRuntime.jsx)(_Icons.SortDescIcon, {
+          className: classes.icon
+        })]
+      });
     }
 
-    return /*#__PURE__*/_react.default.createElement(_Typography.default, {
+    return /*#__PURE__*/(0, _jsxRuntime.jsx)(_Typography.default, {
       color: "primary",
-      variant: "h6"
-    }, column.headerName);
+      variant: "h6",
+      children: column.headerName
+    });
   };
 
-  return /*#__PURE__*/_react.default.createElement(_Box.default, {
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(_Box.default, {
     className: classes.column,
-    onClick: onHeaderClick
-  }, column.renderHeader ? column.renderHeader() : renderHeader());
+    onClick: onHeaderClick,
+    children: column.renderHeader ? column.renderHeader() : renderHeader()
+  });
 }
 
 HeaderColumn.propTypes = {

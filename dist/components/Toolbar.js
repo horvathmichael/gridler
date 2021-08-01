@@ -23,6 +23,8 @@ var _ToolbarDensity = _interopRequireDefault(require("./ToolbarDensity"));
 
 var _ToolbarExport = _interopRequireDefault(require("./ToolbarExport"));
 
+var _jsxRuntime = require("react/jsx-runtime");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const useStyles = (0, _core.makeStyles)(() => ({
@@ -47,30 +49,31 @@ function Toolbar(_ref) {
     onAdd
   } = _ref;
   const classes = useStyles();
-  return /*#__PURE__*/_react.default.createElement(_Toolbar.default, {
-    className: classes.toolbar
-  }, onAdd && /*#__PURE__*/_react.default.createElement(_ToolbarAdd.default, {
-    localization: localization.add,
-    onAdd: onAdd
-  }), /*#__PURE__*/_react.default.createElement("div", {
-    className: classes.flexGrow
-  }), /*#__PURE__*/_react.default.createElement(_ToolbarColumns.default, {
-    localization: localization.columns,
-    columns: columns,
-    onColumnsChange: onColumnsChange
-  }), /*#__PURE__*/_react.default.createElement(_ToolbarFilter.default, {
-    localization: localization.filter,
-    columns: columns,
-    filters: filters,
-    onFilterChange: onFilterChange
-  }), /*#__PURE__*/_react.default.createElement(_ToolbarDensity.default, {
-    localization: localization.density,
-    density: density,
-    onDensityChange: onDensityChange
-  }), /*#__PURE__*/_react.default.createElement(_ToolbarExport.default, {
-    localization: localization.export,
-    onExport: onExport
-  }));
+  return /*#__PURE__*/(0, _jsxRuntime.jsxs)(_Toolbar.default, {
+    className: classes.toolbar,
+    children: [onAdd && /*#__PURE__*/(0, _jsxRuntime.jsx)(_ToolbarAdd.default, {
+      localization: localization.add,
+      onAdd: onAdd
+    }), /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+      className: classes.flexGrow
+    }), /*#__PURE__*/(0, _jsxRuntime.jsx)(_ToolbarColumns.default, {
+      localization: localization.columns,
+      columns: columns,
+      onColumnsChange: onColumnsChange
+    }), /*#__PURE__*/(0, _jsxRuntime.jsx)(_ToolbarFilter.default, {
+      localization: localization.filter,
+      columns: columns,
+      filters: filters,
+      onFilterChange: onFilterChange
+    }), /*#__PURE__*/(0, _jsxRuntime.jsx)(_ToolbarDensity.default, {
+      localization: localization.density,
+      density: density,
+      onDensityChange: onDensityChange
+    }), /*#__PURE__*/(0, _jsxRuntime.jsx)(_ToolbarExport.default, {
+      localization: localization.export,
+      onExport: onExport
+    })]
+  });
 }
 
 Toolbar.propTypes = {

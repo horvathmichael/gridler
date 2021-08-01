@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import Localization from './localization';
-import DataGrid from './components/DataGrid';
+import Localization from '../localization';
+import DataGrid from './DataGrid';
 
 export const ASC = 'asc';
 export const DESC = 'desc';
@@ -57,7 +57,7 @@ export default function Gridler({
         }),
     );
     setPage(1);
-  }, [activeFilters, activeSort]);
+  }, [columns, rows, activeFilters, activeSort]);
 
   useEffect(() => setPageRows(filteredRows.slice((page - 1) * pageSize, page * pageSize)), [filteredRows, page, pageSize]);
 

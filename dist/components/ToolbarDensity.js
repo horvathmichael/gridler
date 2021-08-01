@@ -21,6 +21,8 @@ var _MenuItem = _interopRequireDefault(require("@material-ui/core/MenuItem"));
 
 var _Icons = require("./Icons");
 
+var _jsxRuntime = require("react/jsx-runtime");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
@@ -56,29 +58,33 @@ function ToolbarDensity(_ref) {
 
   const onMenuClose = () => setAnchorEl();
 
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_Button.default, {
-    color: "primary",
-    onClick: onMenuOpen
-  }, /*#__PURE__*/_react.default.createElement(_Icons.DensityIcon, {
-    className: classes.icon
-  }), localization.button), /*#__PURE__*/_react.default.createElement(_Menu.default, {
-    getContentAnchorEl: null,
-    anchorEl: anchorEl,
-    anchorOrigin: {
-      vertical: 'bottom',
-      horizontal: 'right'
-    },
-    transformOrigin: {
-      vertical: 'top',
-      horizontal: 'right'
-    },
-    open: Boolean(anchorEl),
-    onClose: onMenuClose
-  }, densities.map(item => /*#__PURE__*/_react.default.createElement(_MenuItem.default, {
-    key: item,
-    className: item === density ? classes.selected : classes.menuitem,
-    onClick: () => onDensityChange(item)
-  }, localization[item]))));
+  return /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
+    children: [/*#__PURE__*/(0, _jsxRuntime.jsxs)(_Button.default, {
+      color: "primary",
+      onClick: onMenuOpen,
+      children: [/*#__PURE__*/(0, _jsxRuntime.jsx)(_Icons.DensityIcon, {
+        className: classes.icon
+      }), localization.button]
+    }), /*#__PURE__*/(0, _jsxRuntime.jsx)(_Menu.default, {
+      getContentAnchorEl: null,
+      anchorEl: anchorEl,
+      anchorOrigin: {
+        vertical: 'bottom',
+        horizontal: 'right'
+      },
+      transformOrigin: {
+        vertical: 'top',
+        horizontal: 'right'
+      },
+      open: Boolean(anchorEl),
+      onClose: onMenuClose,
+      children: densities.map(item => /*#__PURE__*/(0, _jsxRuntime.jsx)(_MenuItem.default, {
+        className: item === density ? classes.selected : classes.menuitem,
+        onClick: () => onDensityChange(item),
+        children: localization[item]
+      }, item))
+    })]
+  });
 }
 
 ToolbarDensity.propTypes = {
