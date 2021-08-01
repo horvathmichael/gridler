@@ -6,12 +6,6 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = Gridler;
 exports.DESC = exports.ASC = void 0;
 
-require("core-js/modules/es.array.sort.js");
-
-require("core-js/modules/web.dom-collections.iterator.js");
-
-require("core-js/modules/es.string.includes.js");
-
 var _react = _interopRequireWildcard(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
