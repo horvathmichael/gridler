@@ -1,6 +1,6 @@
 {
   "name": "gridler",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "The 'gridler' is a datagrid React component which supports CRUD, sorting, filtering and exporting",
   "author": "Horvath Michael",
   "keywords": [
