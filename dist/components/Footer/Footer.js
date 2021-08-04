@@ -21,7 +21,7 @@ var _Button = _interopRequireDefault(require("@material-ui/core/Button"));
 
 var _Autocomplete = _interopRequireDefault(require("@material-ui/lab/Autocomplete"));
 
-var _Icons = require("./Icons");
+var _Icons = require("../Icons");
 
 var _jsxRuntime = require("react/jsx-runtime");
 
@@ -51,24 +51,24 @@ const useStyles = (0, _core.makeStyles)(theme => ({
 
 function Footer(_ref) {
   let {
-    localization,
-    rows,
-    filteredRows,
+    initialRows,
+    local,
+    onPageChange,
+    onPageSizeChange,
     page,
     pageSize,
-    onPageChange,
-    onPageSizeChange
+    rows
   } = _ref;
   const classes = useStyles();
 
   const countPages = () => {
     const pages = [];
 
-    for (let index = 1; index <= filteredRows.length / pageSize; index += 1) {
+    for (let index = 1; index <= rows.length / pageSize; index += 1) {
       pages.push("".concat(index));
     }
 
-    if (filteredRows.length % pageSize > 0) {
+    if (rows.length % pageSize > 0) {
       pages.push("".concat(pages.length + 1));
     }
 
@@ -79,7 +79,7 @@ function Footer(_ref) {
     className: classes.footer,
     children: [/*#__PURE__*/(0, _jsxRuntime.jsx)(_Typography.default, {
       className: classes.text,
-      children: "".concat(localization.rows, ": ").concat(filteredRows.length, " / ").concat(rows.length)
+      children: "".concat(local.rows, ": ").concat(rows.length, " / ").concat(initialRows.length)
     }), /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
       className: classes.flexGrow
     }), /*#__PURE__*/(0, _jsxRuntime.jsx)(_Autocomplete.default, {
@@ -90,7 +90,7 @@ function Footer(_ref) {
       disableClearable: true,
       renderInput: params => /*#__PURE__*/(0, _jsxRuntime.jsx)(_TextField.default // eslint-disable-next-line react/jsx-props-no-spreading
       , _objectSpread(_objectSpread({}, params), {}, {
-        label: "".concat(localization.pageSize, ": ")
+        label: "".concat(local.pageSize, ": ")
       })),
       renderOption: (option, _ref2) => {
         let {
@@ -118,7 +118,7 @@ function Footer(_ref) {
         const lastPage = countPages()[countPages().length - 1] || 1;
         return /*#__PURE__*/(0, _jsxRuntime.jsx)(_TextField.default // eslint-disable-next-line react/jsx-props-no-spreading
         , _objectSpread(_objectSpread({}, params), {}, {
-          label: "".concat(localization.page, " (").concat(params.inputProps.value, "/").concat(lastPage, "): ")
+          label: "".concat(local.page, " (").concat(params.inputProps.value, "/").concat(lastPage, "): ")
         }));
       },
       renderOption: (option, _ref3) => {
@@ -134,7 +134,7 @@ function Footer(_ref) {
           children: option
         }) : option;
       }
-    }), page < filteredRows.length / pageSize && /*#__PURE__*/(0, _jsxRuntime.jsx)(_Button.default, {
+    }), page < rows.length / pageSize && /*#__PURE__*/(0, _jsxRuntime.jsx)(_Button.default, {
       onClick: () => onPageChange(undefined, "".concat(page + 1)),
       children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_Icons.ArrowRightIcon, {})
     })]
@@ -142,15 +142,15 @@ function Footer(_ref) {
 }
 
 Footer.propTypes = {
-  localization: _propTypes.default.shape({
+  initialRows: _propTypes.default.arrayOf(_propTypes.default.shape()).isRequired,
+  local: _propTypes.default.shape({
     rows: _propTypes.default.string.isRequired,
     page: _propTypes.default.string.isRequired,
     pageSize: _propTypes.default.string.isRequired
   }).isRequired,
-  rows: _propTypes.default.arrayOf(_propTypes.default.shape()).isRequired,
-  filteredRows: _propTypes.default.arrayOf(_propTypes.default.shape()).isRequired,
+  onPageChange: _propTypes.default.func.isRequired,
+  onPageSizeChange: _propTypes.default.func.isRequired,
   page: _propTypes.default.number.isRequired,
   pageSize: _propTypes.default.number.isRequired,
-  onPageChange: _propTypes.default.func.isRequired,
-  onPageSizeChange: _propTypes.default.func.isRequired
+  rows: _propTypes.default.arrayOf(_propTypes.default.shape()).isRequired
 };

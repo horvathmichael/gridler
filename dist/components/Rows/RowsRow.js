@@ -11,16 +11,18 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _core = require("@material-ui/core");
 
-var _RowColumn = _interopRequireDefault(require("./RowColumn"));
+var _constant = require("../../constant");
+
+var _RowsRowCell = _interopRequireDefault(require("./RowsRowCell"));
 
 var _jsxRuntime = require("react/jsx-runtime");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const densities = {
-  compact: 0,
-  standard: 1,
-  comfortable: 2
+  [_constant.densityConstant.compact]: 0,
+  [_constant.densityConstant.default]: 1,
+  [_constant.densityConstant.comfort]: 2
 };
 const useStyles = (0, _core.makeStyles)(theme => ({
   row: {
@@ -52,10 +54,10 @@ const useStyles = (0, _core.makeStyles)(theme => ({
 
 function Row(_ref4) {
   let {
-    row,
     columns,
     density,
-    onClick
+    onClick,
+    row
   } = _ref4;
   const classes = useStyles({
     density,
@@ -63,7 +65,7 @@ function Row(_ref4) {
   });
   return /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
     className: classes.row,
-    children: columns.filter(column => !column.hidden).map(column => /*#__PURE__*/(0, _jsxRuntime.jsx)(_RowColumn.default, {
+    children: columns.filter(column => !column.hide).map(column => /*#__PURE__*/(0, _jsxRuntime.jsx)(_RowsRowCell.default, {
       row: row,
       column: column,
       onClick: onClick
@@ -73,11 +75,10 @@ function Row(_ref4) {
 
 Row.propTypes = {
   columns: _propTypes.default.arrayOf(_propTypes.default.shape()).isRequired,
-  row: _propTypes.default.shape().isRequired,
-  density: _propTypes.default.string,
-  onClick: _propTypes.default.func
+  density: _propTypes.default.string.isRequired,
+  onClick: _propTypes.default.func,
+  row: _propTypes.default.shape().isRequired
 };
 Row.defaultProps = {
-  onClick: undefined,
-  density: 'standard'
+  onClick: undefined
 };

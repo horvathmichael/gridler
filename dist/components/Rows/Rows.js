@@ -9,7 +9,7 @@ var _react = _interopRequireDefault(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
-var _Row = _interopRequireDefault(require("./Row"));
+var _RowsRow = _interopRequireDefault(require("./RowsRow"));
 
 var _jsxRuntime = require("react/jsx-runtime");
 
@@ -22,7 +22,7 @@ function Rows(_ref) {
     density,
     onRowClick
   } = _ref;
-  return pageRows.map(row => /*#__PURE__*/(0, _jsxRuntime.jsx)(_Row.default, {
+  return pageRows.map(row => /*#__PURE__*/(0, _jsxRuntime.jsx)(_RowsRow.default, {
     row: row,
     columns: columns,
     density: density,
@@ -31,10 +31,10 @@ function Rows(_ref) {
 }
 
 Rows.propTypes = {
-  pageRows: _propTypes.default.arrayOf(_propTypes.default.shape()).isRequired,
   columns: _propTypes.default.arrayOf(_propTypes.default.shape()).isRequired,
   density: _propTypes.default.string.isRequired,
-  onRowClick: _propTypes.default.func
+  onRowClick: _propTypes.default.func,
+  pageRows: _propTypes.default.arrayOf(_propTypes.default.shape()).isRequired
 };
 Rows.defaultProps = {
   onRowClick: undefined

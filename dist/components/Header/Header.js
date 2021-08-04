@@ -35,7 +35,7 @@ function Header(_ref) {
   const classes = useStyles();
   return /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
     className: classes.header,
-    children: columns.filter(column => !column.hidden).map(column => /*#__PURE__*/(0, _jsxRuntime.jsx)(_HeaderColumn.default, {
+    children: columns.filter(column => !column.hide).map(column => /*#__PURE__*/(0, _jsxRuntime.jsx)(_HeaderColumn.default, {
       column: column,
       sort: sort,
       onSortChange: onSortChange
@@ -46,8 +46,7 @@ function Header(_ref) {
 Header.propTypes = {
   columns: _propTypes.default.arrayOf(_propTypes.default.shape()).isRequired,
   sort: _propTypes.default.shape(),
-  onSortChange: _propTypes.default.func.isRequired // filters: PropTypes.arrayOf(PropTypes.shape()).isRequired,
-
+  onSortChange: _propTypes.default.func.isRequired
 };
 Header.defaultProps = {
   sort: undefined

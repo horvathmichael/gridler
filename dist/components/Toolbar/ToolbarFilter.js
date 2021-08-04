@@ -23,8 +23,6 @@ var _Checkbox = _interopRequireDefault(require("@material-ui/core/Checkbox"));
 
 var _Badge = _interopRequireDefault(require("@material-ui/core/Badge"));
 
-var _Icons = require("./Icons");
-
 var _jsxRuntime = require("react/jsx-runtime");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -46,9 +44,10 @@ const useStyles = (0, _core.makeStyles)(theme => ({
 
 function ToolbarFilter(_ref) {
   let {
-    localization,
     columns,
-    filters,
+    filter,
+    icon,
+    local,
     onFilterChange
   } = _ref;
   const classes = useStyles();
@@ -60,8 +59,8 @@ function ToolbarFilter(_ref) {
 
   const countFilter = () => {
     let counter = null;
-    Object.keys(filters).forEach(key => {
-      if (filters[key] !== '' && filters[key] !== null) {
+    Object.keys(filter).forEach(key => {
+      if (filter[key] !== '' && filter[key] !== null) {
         counter += 1;
       }
     });
@@ -75,9 +74,7 @@ function ToolbarFilter(_ref) {
       children: /*#__PURE__*/(0, _jsxRuntime.jsxs)(_Button.default, {
         color: "primary",
         onClick: onMenuOpen,
-        children: [/*#__PURE__*/(0, _jsxRuntime.jsx)(_Icons.FilterIcon, {
-          className: classes.icon
-        }), localization.button]
+        children: [icon, " ".concat(local.button)]
       })
     }), /*#__PURE__*/(0, _jsxRuntime.jsx)(_Popover.default, {
       getContentAnchorEl: null,
@@ -98,7 +95,7 @@ function ToolbarFilter(_ref) {
           color: "primary",
           name: column.field,
           label: column.headerName,
-          value: filters[column.field],
+          value: filter[column.field] || '',
           onChange: event => onFilterChange(column.field, event.target.value),
           fullWidth: true
         }), column.type === 'boolean' && /*#__PURE__*/(0, _jsxRuntime.jsx)(_FormControlLabel.default, {
@@ -106,11 +103,11 @@ function ToolbarFilter(_ref) {
           control: /*#__PURE__*/(0, _jsxRuntime.jsx)(_Checkbox.default, {
             color: "primary",
             name: column.field,
-            checked: filters[column.field] === null ? false : filters[column.field],
+            checked: filter[column.field] === null ? false : filter[column.field],
             onChange: (event, value) => {
-              onFilterChange(column.field, filters[column.field] === false ? null : value);
+              onFilterChange(column.field, filter[column.field] === false ? null : value);
             },
-            indeterminate: filters[column.field] === false
+            indeterminate: filter[column.field] === false
           })
         })]
       }, column.field))
@@ -119,13 +116,11 @@ function ToolbarFilter(_ref) {
 }
 
 ToolbarFilter.propTypes = {
-  localization: _propTypes.default.shape({
+  columns: _propTypes.default.arrayOf(_propTypes.default.shape()).isRequired,
+  filter: _propTypes.default.PropTypes.shape().isRequired,
+  icon: _propTypes.default.node.isRequired,
+  local: _propTypes.default.shape({
     button: _propTypes.default.string.isRequired
   }).isRequired,
-  columns: _propTypes.default.arrayOf(_propTypes.default.shape()).isRequired,
-  filters: _propTypes.default.PropTypes.shape(),
   onFilterChange: _propTypes.default.func.isRequired
-};
-ToolbarFilter.defaultProps = {
-  filters: {}
 };

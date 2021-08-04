@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = RowColumn;
+exports.default = RowsRowCell;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -11,11 +11,11 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _core = require("@material-ui/core");
 
-var _Typography = _interopRequireDefault(require("@material-ui/core/Typography"));
-
 var _Box = _interopRequireDefault(require("@material-ui/core/Box"));
 
-var _Icons = require("./Icons");
+var _Typography = _interopRequireDefault(require("@material-ui/core/Typography"));
+
+var _constant = require("../../constant");
 
 var _jsxRuntime = require("react/jsx-runtime");
 
@@ -33,43 +33,40 @@ const useStyles = (0, _core.makeStyles)(theme => ({
       } = _ref;
       return "".concat(width, "px") || '150px';
     }
-  },
-  icon: {
-    marginLeft: theme.spacing(1)
   }
 }));
 
-function RowColumn(_ref2) {
+function RowsRowCell(_ref2) {
   let {
     column,
     row,
-    onClick
+    onClick: _onClick
   } = _ref2;
   const classes = useStyles({
     width: column.width
   });
 
-  const onRowColumnClick = () => {
-    if (onClick) {
-      onClick(row);
-    }
-  };
-
-  const renderCell = () => {
+  const render = () => {
     if (column.renderCell) {
-      return column.renderCell({
-        row
+      return column.renderCell(row);
+    }
+
+    if (column.valueFormatter) {
+      return /*#__PURE__*/(0, _jsxRuntime.jsx)(_Typography.default, {
+        children: column.valueFormatter(row[column.field])
       });
     }
 
     if (column.valueGetter) {
-      return column.valueGetter({
-        row
+      return /*#__PURE__*/(0, _jsxRuntime.jsx)(_Typography.default, {
+        children: column.valueGetter(row)
       });
     }
 
-    if (column.type === 'boolean') {
-      return row[column.field] ? /*#__PURE__*/(0, _jsxRuntime.jsx)(_Icons.YesIcon, {}) : /*#__PURE__*/(0, _jsxRuntime.jsx)(_Icons.NoIcon, {});
+    if (column.type === _constant.typeConstant.boolean) {
+      return /*#__PURE__*/(0, _jsxRuntime.jsx)(_Typography.default, {
+        children: row[column.field] ? 'yes' : 'no'
+      });
     }
 
     return /*#__PURE__*/(0, _jsxRuntime.jsx)(_Typography.default, {
@@ -79,22 +76,23 @@ function RowColumn(_ref2) {
 
   return /*#__PURE__*/(0, _jsxRuntime.jsx)(_Box.default, {
     className: classes.column,
-    onClick: onRowColumnClick,
-    children: renderCell()
+    onClick: () => _onClick ? _onClick(row) : undefined,
+    children: render()
   });
 }
 
-RowColumn.propTypes = {
+RowsRowCell.propTypes = {
   column: _propTypes.default.shape({
     field: _propTypes.default.string,
     width: _propTypes.default.number,
     type: _propTypes.default.string,
     renderCell: _propTypes.default.func,
+    valueFormatter: _propTypes.default.func,
     valueGetter: _propTypes.default.func
   }).isRequired,
   row: _propTypes.default.shape({}).isRequired,
   onClick: _propTypes.default.func
 };
-RowColumn.defaultProps = {
+RowsRowCell.defaultProps = {
   onClick: undefined
 };

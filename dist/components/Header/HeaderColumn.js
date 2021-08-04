@@ -15,7 +15,7 @@ var _Typography = _interopRequireDefault(require("@material-ui/core/Typography")
 
 var _Box = _interopRequireDefault(require("@material-ui/core/Box"));
 
-var _Icons = require("./Icons");
+var _Icons = require("../Icons");
 
 var _jsxRuntime = require("react/jsx-runtime");
 
@@ -64,7 +64,7 @@ function HeaderColumn(_ref3) {
   };
 
   const renderHeader = () => {
-    if (sort && sort.column === column) {
+    if (sort.column === column) {
       return /*#__PURE__*/(0, _jsxRuntime.jsxs)(_Box.default, {
         display: "flex",
         children: [/*#__PURE__*/(0, _jsxRuntime.jsx)(_Typography.default, {
@@ -95,18 +95,18 @@ function HeaderColumn(_ref3) {
 
 HeaderColumn.propTypes = {
   column: _propTypes.default.shape({
-    field: _propTypes.default.string,
-    headerName: _propTypes.default.string,
-    width: _propTypes.default.number,
+    field: _propTypes.default.string.isRequired,
+    headerName: _propTypes.default.string.isRequired,
+    renderHeader: _propTypes.default.func,
     sortable: _propTypes.default.bool,
-    renderHeader: _propTypes.default.func
+    width: _propTypes.default.number
   }).isRequired,
+  onSortChange: _propTypes.default.func.isRequired,
   sort: _propTypes.default.shape({
     column: _propTypes.default.shape({}),
     order: _propTypes.default.string
-  }),
-  onSortChange: _propTypes.default.func.isRequired
+  })
 };
 HeaderColumn.defaultProps = {
-  sort: undefined
+  sort: {}
 };

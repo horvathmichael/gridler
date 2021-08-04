@@ -18,14 +18,14 @@ var _default = {
     density: {
       button: 'Zeilenhöhe',
       compact: 'Kompakt',
-      standard: 'Standart',
-      comfortable: 'Komfortabel'
+      default: 'Standart',
+      comfort: 'Komfortabel'
     },
     export: {
       button: 'Export'
     }
   },
-  data: {
+  rows: {
     nodata: 'Keine Einträge gefunden!'
   },
   footer: {

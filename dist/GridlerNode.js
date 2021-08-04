@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = DataGrid;
+exports.default = GridlerNode;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -15,13 +15,15 @@ var _Divider = _interopRequireDefault(require("@material-ui/core/Divider"));
 
 var _core = require("@material-ui/core");
 
-var _Toolbar = _interopRequireDefault(require("./Toolbar"));
+var _constant = require("./constant");
 
-var _Header = _interopRequireDefault(require("./Header"));
+var _Toolbar = _interopRequireDefault(require("./components/Toolbar"));
 
-var _Rows = _interopRequireDefault(require("./Rows"));
+var _Header = _interopRequireDefault(require("./components/Header/Header"));
 
-var _Footer = _interopRequireDefault(require("./Footer"));
+var _Rows = _interopRequireDefault(require("./components/Rows"));
+
+var _Footer = _interopRequireDefault(require("./components/Footer"));
 
 var _jsxRuntime = require("react/jsx-runtime");
 
@@ -53,43 +55,46 @@ const useStyles = (0, _core.makeStyles)(() => ({
   }
 }));
 
-function DataGrid(_ref2) {
+function GridlerNode(_ref2) {
   let {
-    localization,
-    height,
-    rows,
-    filteredRows,
-    pageRows,
     columns,
-    filters,
     density,
-    sort,
-    page,
-    pageSize,
+    filename,
+    filter,
+    height,
+    initialRows,
+    local,
+    onAddClick,
+    onColumnsChange,
+    onDensityChange,
+    onFilterChange,
     onPageChange,
     onPageSizeChange,
-    onColumnsChange,
-    onFilterChange,
-    onDensityChange,
+    onRowClick,
     onSortChange,
-    onExport,
-    onAdd,
-    onRowClick
+    page,
+    pageRows,
+    pageSize,
+    rows,
+    sort,
+    toolbarSettings
   } = _ref2;
   const classes = useStyles({
     height
   });
   return /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
     children: [/*#__PURE__*/(0, _jsxRuntime.jsx)(_Toolbar.default, {
-      localization: localization.toolbar,
       columns: columns,
-      filters: filters,
       density: density,
+      filename: filename,
+      filter: filter,
+      local: local.toolbar,
+      onAddClick: onAddClick,
       onColumnsChange: onColumnsChange,
-      onFilterChange: onFilterChange,
       onDensityChange: onDensityChange,
-      onExport: onExport,
-      onAdd: onAdd
+      onFilterChange: onFilterChange,
+      rows: rows,
+      settings: toolbarSettings
     }), /*#__PURE__*/(0, _jsxRuntime.jsx)(_Paper.default, {
       children: /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
         className: classes.main,
@@ -97,65 +102,65 @@ function DataGrid(_ref2) {
           className: classes.data,
           children: [/*#__PURE__*/(0, _jsxRuntime.jsx)(_Header.default, {
             columns: columns,
-            filters: filters,
-            sort: sort,
-            onSortChange: onSortChange
+            filter: filter,
+            onSortChange: onSortChange,
+            sort: sort
           }), pageRows.length > 0 ? /*#__PURE__*/(0, _jsxRuntime.jsx)(_Rows.default, {
-            pageRows: pageRows,
             columns: columns,
             density: density,
+            pageRows: pageRows,
             onRowClick: onRowClick
           }) : /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
             className: classes.nodata,
             children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_core.Typography, {
-              children: localization.data.nodata
+              children: local.rows.nodata
             })
           })]
         }), /*#__PURE__*/(0, _jsxRuntime.jsx)(_Divider.default, {}), /*#__PURE__*/(0, _jsxRuntime.jsx)(_Footer.default, {
-          localization: localization.footer,
-          rows: rows,
-          filteredRows: filteredRows,
+          initialRows: initialRows,
+          local: local.footer,
+          onPageChange: onPageChange,
+          onPageSizeChange: onPageSizeChange,
           page: page,
           pageSize: pageSize,
-          onPageChange: onPageChange,
-          onPageSizeChange: onPageSizeChange
+          rows: rows
         })]
       })
     })]
   });
 }
 
-DataGrid.propTypes = {
-  localization: _propTypes.default.shape({
+GridlerNode.propTypes = {
+  columns: _propTypes.default.arrayOf(_propTypes.default.shape()).isRequired,
+  density: _propTypes.default.oneOf([_constant.densityConstant.compact, _constant.densityConstant.default, _constant.densityConstant.comfort]).isRequired,
+  filter: _propTypes.default.shape({}).isRequired,
+  filename: _propTypes.default.string.isRequired,
+  height: _propTypes.default.number.isRequired,
+  initialRows: _propTypes.default.arrayOf(_propTypes.default.shape()).isRequired,
+  local: _propTypes.default.shape({
     toolbar: _propTypes.default.shape({}).isRequired,
-    data: _propTypes.default.shape({
+    rows: _propTypes.default.shape({
       nodata: _propTypes.default.string.isRequired
     }).isRequired,
     footer: _propTypes.default.shape({}).isRequired
   }).isRequired,
-  rows: _propTypes.default.arrayOf(_propTypes.default.shape()).isRequired,
-  filteredRows: _propTypes.default.arrayOf(_propTypes.default.shape()).isRequired,
-  pageRows: _propTypes.default.arrayOf(_propTypes.default.shape()).isRequired,
-  columns: _propTypes.default.arrayOf(_propTypes.default.shape()).isRequired,
-  filters: _propTypes.default.shape().isRequired,
-  density: _propTypes.default.string.isRequired,
-  sort: _propTypes.default.shape(),
-  height: _propTypes.default.number,
-  page: _propTypes.default.number.isRequired,
-  pageSize: _propTypes.default.number.isRequired,
+  onAddClick: _propTypes.default.func,
   onColumnsChange: _propTypes.default.func.isRequired,
-  onFilterChange: _propTypes.default.func.isRequired,
   onDensityChange: _propTypes.default.func.isRequired,
-  onSortChange: _propTypes.default.func.isRequired,
+  onFilterChange: _propTypes.default.func.isRequired,
   onPageChange: _propTypes.default.func.isRequired,
   onPageSizeChange: _propTypes.default.func.isRequired,
-  onExport: _propTypes.default.func.isRequired,
-  onAdd: _propTypes.default.func,
-  onRowClick: _propTypes.default.func
+  onRowClick: _propTypes.default.func,
+  onSortChange: _propTypes.default.func.isRequired,
+  page: _propTypes.default.number.isRequired,
+  pageRows: _propTypes.default.arrayOf(_propTypes.default.shape()).isRequired,
+  pageSize: _propTypes.default.number.isRequired,
+  rows: _propTypes.default.arrayOf(_propTypes.default.shape()).isRequired,
+  sort: _propTypes.default.shape({}),
+  toolbarSettings: _propTypes.default.shape({}).isRequired
 };
-DataGrid.defaultProps = {
-  sort: undefined,
-  onAdd: undefined,
+GridlerNode.defaultProps = {
+  onAddClick: undefined,
   onRowClick: undefined,
-  height: 600
+  sort: undefined
 };

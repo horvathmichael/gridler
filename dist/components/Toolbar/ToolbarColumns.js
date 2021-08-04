@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = ToolbarDensity;
+exports.default = ToolbarColumns;
 
 var _react = _interopRequireWildcard(require("react"));
 
@@ -11,13 +11,13 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _core = require("@material-ui/core");
 
-var _Button = _interopRequireDefault(require("@material-ui/core/Button"));
+var _Popover = _interopRequireDefault(require("@material-ui/core/Popover"));
 
-var _Menu = _interopRequireDefault(require("@material-ui/core/Menu"));
+var _FormControlLabel = _interopRequireDefault(require("@material-ui/core/FormControlLabel"));
 
-var _MenuItem = _interopRequireDefault(require("@material-ui/core/MenuItem"));
+var _Switch = _interopRequireDefault(require("@material-ui/core/Switch"));
 
-var _Icons = require("./Icons");
+var _ToolbarButton = _interopRequireDefault(require("./ToolbarButton"));
 
 var _jsxRuntime = require("react/jsx-runtime");
 
@@ -31,23 +31,18 @@ const useStyles = (0, _core.makeStyles)(theme => ({
   icon: {
     marginRight: theme.spacing(1)
   },
-  menuitem: {
-    padding: theme.spacing(1),
-    width: theme.spacing(15)
-  },
-  selected: {
-    padding: theme.spacing(1),
-    color: theme.palette.primary.main,
-    width: theme.spacing(15)
+  switch: {
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2)
   }
 }));
-const densities = ['compact', 'standard', 'comfortable'];
 
-function ToolbarDensity(_ref) {
+function ToolbarColumns(_ref) {
   let {
-    localization,
-    density,
-    onDensityChange
+    columns,
+    icon,
+    local,
+    onColumnsChange
   } = _ref;
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = (0, _react.useState)();
@@ -57,13 +52,11 @@ function ToolbarDensity(_ref) {
   const onMenuClose = () => setAnchorEl();
 
   return /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
-    children: [/*#__PURE__*/(0, _jsxRuntime.jsxs)(_Button.default, {
-      color: "primary",
-      onClick: onMenuOpen,
-      children: [/*#__PURE__*/(0, _jsxRuntime.jsx)(_Icons.DensityIcon, {
-        className: classes.icon
-      }), localization.button]
-    }), /*#__PURE__*/(0, _jsxRuntime.jsx)(_Menu.default, {
+    children: [/*#__PURE__*/(0, _jsxRuntime.jsx)(_ToolbarButton.default, {
+      icon: icon,
+      label: local.button,
+      onClick: onMenuOpen
+    }), /*#__PURE__*/(0, _jsxRuntime.jsx)(_Popover.default, {
       getContentAnchorEl: null,
       anchorEl: anchorEl,
       anchorOrigin: {
@@ -76,19 +69,27 @@ function ToolbarDensity(_ref) {
       },
       open: Boolean(anchorEl),
       onClose: onMenuClose,
-      children: densities.map(item => /*#__PURE__*/(0, _jsxRuntime.jsx)(_MenuItem.default, {
-        className: item === density ? classes.selected : classes.menuitem,
-        onClick: () => onDensityChange(item),
-        children: localization[item]
-      }, item))
+      children: columns.map(column => /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+        className: classes.switch,
+        children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_FormControlLabel.default, {
+          label: column.headerName,
+          control: /*#__PURE__*/(0, _jsxRuntime.jsx)(_Switch.default, {
+            color: "primary",
+            checked: !column.hide,
+            onChange: () => onColumnsChange(column),
+            name: column.field
+          })
+        })
+      }, column.field))
     })]
   });
 }
 
-ToolbarDensity.propTypes = {
-  localization: _propTypes.default.shape({
+ToolbarColumns.propTypes = {
+  columns: _propTypes.default.arrayOf(_propTypes.default.shape()).isRequired,
+  icon: _propTypes.default.node.isRequired,
+  local: _propTypes.default.shape({
     button: _propTypes.default.string.isRequired
   }).isRequired,
-  density: _propTypes.default.string.isRequired,
-  onDensityChange: _propTypes.default.func.isRequired
+  onColumnsChange: _propTypes.default.func.isRequired
 };
