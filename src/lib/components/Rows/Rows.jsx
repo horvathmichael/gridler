@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Row from './Row';
+import RowsRow from './RowsRow';
 
 export default function Rows({
   pageRows,
@@ -10,7 +10,7 @@ export default function Rows({
   onRowClick,
 }) {
   return pageRows.map((row) => (
-    <Row
+    <RowsRow
       key={row.id || row}
       row={row}
       columns={columns}
@@ -21,10 +21,10 @@ export default function Rows({
 }
 
 Rows.propTypes = {
-  pageRows: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   columns: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   density: PropTypes.string.isRequired,
   onRowClick: PropTypes.func,
+  pageRows: PropTypes.arrayOf(PropTypes.shape()).isRequired,
 };
 
 Rows.defaultProps = {

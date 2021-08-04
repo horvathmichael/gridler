@@ -19,7 +19,7 @@ export default function Header({ columns, sort, onSortChange }) {
   return (
     <div className={classes.header}>
       {columns
-        .filter((column) => !column.hidden)
+        .filter((column) => !column.hide)
         .map((column) => (
           <HeaderColumn
             key={column.field}
@@ -36,7 +36,6 @@ Header.propTypes = {
   columns: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   sort: PropTypes.shape(),
   onSortChange: PropTypes.func.isRequired,
-  // filters: PropTypes.arrayOf(PropTypes.shape()).isRequired,
 };
 
 Header.defaultProps = {

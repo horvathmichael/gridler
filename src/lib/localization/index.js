@@ -1,3 +1,4 @@
-import deDE from './deDE';
+import en from './en';
+import de from './de';
 
-export default { deDE };
+export default { en, de };

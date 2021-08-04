@@ -7,7 +7,7 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
-import { ArrowLeftIcon, ArrowRightIcon } from './Icons';
+import { ArrowLeftIcon, ArrowRightIcon } from '../Icons';
 
 const useStyles = makeStyles((theme) => ({
   footer: {
@@ -26,21 +26,21 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Footer({
-  localization,
-  rows,
-  filteredRows,
-  page,
-  pageSize,
+  initialRows,
+  local,
   onPageChange,
   onPageSizeChange,
+  page,
+  pageSize,
+  rows,
 }) {
   const classes = useStyles();
   const countPages = () => {
     const pages = [];
-    for (let index = 1; index <= (filteredRows.length / pageSize); index += 1) {
+    for (let index = 1; index <= (rows.length / pageSize); index += 1) {
       pages.push(`${index}`);
     }
-    if (filteredRows.length % pageSize > 0) {
+    if (rows.length % pageSize > 0) {
       pages.push(`${pages.length + 1}`);
     }
     return pages;
@@ -49,7 +49,7 @@ export default function Footer({
   return (
     <div className={classes.footer}>
       <Typography className={classes.text}>
-        {`${localization.rows}: ${filteredRows.length} / ${rows.length}`}
+        {`${local.rows}: ${rows.length} / ${initialRows.length}`}
       </Typography>
       <div className={classes.flexGrow} />
       <Autocomplete
@@ -62,7 +62,7 @@ export default function Footer({
           <TextField
             // eslint-disable-next-line react/jsx-props-no-spreading
             {...params}
-            label={`${localization.pageSize}: `}
+            label={`${local.pageSize}: `}
           />
         )}
         renderOption={(option, { selected }) => (
@@ -90,7 +90,7 @@ export default function Footer({
             <TextField
             // eslint-disable-next-line react/jsx-props-no-spreading
               {...params}
-              label={`${localization.page} (${params.inputProps.value}/${lastPage}): `}
+              label={`${local.page} (${params.inputProps.value}/${lastPage}): `}
             />
           );
         }}
@@ -104,7 +104,7 @@ export default function Footer({
           )
         )}
       />
-      {page < (filteredRows.length / pageSize) && (
+      {page < (rows.length / pageSize) && (
         <Button onClick={() => onPageChange(undefined, `${page + 1}`)}><ArrowRightIcon /></Button>
       )}
     </div>
@@ -112,15 +112,15 @@ export default function Footer({
 }
 
 Footer.propTypes = {
-  localization: PropTypes.shape({
+  initialRows: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  local: PropTypes.shape({
     rows: PropTypes.string.isRequired,
     page: PropTypes.string.isRequired,
     pageSize: PropTypes.string.isRequired,
   }).isRequired,
-  rows: PropTypes.arrayOf(PropTypes.shape()).isRequired,
-  filteredRows: PropTypes.arrayOf(PropTypes.shape()).isRequired,
-  page: PropTypes.number.isRequired,
-  pageSize: PropTypes.number.isRequired,
   onPageChange: PropTypes.func.isRequired,
   onPageSizeChange: PropTypes.func.isRequired,
+  page: PropTypes.number.isRequired,
+  pageSize: PropTypes.number.isRequired,
+  rows: PropTypes.arrayOf(PropTypes.shape()).isRequired,
 };

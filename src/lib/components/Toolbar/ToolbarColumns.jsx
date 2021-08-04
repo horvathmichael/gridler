@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
 import Popover from '@material-ui/core/Popover';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 
-import { ColumnIcon } from './Icons';
+import ToolbarButton from './ToolbarButton';
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -20,7 +19,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ToolbarColumns({
   columns,
-  localization,
+  icon,
+  local,
   onColumnsChange,
 }) {
   const classes = useStyles();
@@ -31,10 +31,7 @@ export default function ToolbarColumns({
 
   return (
     <div>
-      <Button color="primary" onClick={onMenuOpen}>
-        <ColumnIcon className={classes.icon} />
-        {localization.button}
-      </Button>
+      <ToolbarButton icon={icon} label={local.button} onClick={onMenuOpen} />
       <Popover
         getContentAnchorEl={null}
         anchorEl={anchorEl}
@@ -50,7 +47,7 @@ export default function ToolbarColumns({
               control={(
                 <Switch
                   color="primary"
-                  checked={!column.hidden}
+                  checked={!column.hide}
                   onChange={() => onColumnsChange(column)}
                   name={column.field}
                 />
@@ -64,9 +61,10 @@ export default function ToolbarColumns({
 }
 
 ToolbarColumns.propTypes = {
-  localization: PropTypes.shape({
+  columns: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  icon: PropTypes.node.isRequired,
+  local: PropTypes.shape({
     button: PropTypes.string.isRequired,
   }).isRequired,
-  columns: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   onColumnsChange: PropTypes.func.isRequired,
 };

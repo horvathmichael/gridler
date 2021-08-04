@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
-import { SortAscIcon, SortDescIcon } from './Icons';
+import { SortAscIcon, SortDescIcon } from '../Icons';
 
 const useStyles = makeStyles((theme) => ({
   column: {
@@ -34,7 +34,7 @@ export default function HeaderColumn({ column, sort, onSortChange }) {
   };
 
   const renderHeader = () => {
-    if (sort && sort.column === column) {
+    if (sort.column === column) {
       return (
         <Box display="flex">
           <Typography color="primary" variant="h6">
@@ -63,19 +63,19 @@ export default function HeaderColumn({ column, sort, onSortChange }) {
 
 HeaderColumn.propTypes = {
   column: PropTypes.shape({
-    field: PropTypes.string,
-    headerName: PropTypes.string,
-    width: PropTypes.number,
-    sortable: PropTypes.bool,
+    field: PropTypes.string.isRequired,
+    headerName: PropTypes.string.isRequired,
     renderHeader: PropTypes.func,
+    sortable: PropTypes.bool,
+    width: PropTypes.number,
   }).isRequired,
+  onSortChange: PropTypes.func.isRequired,
   sort: PropTypes.shape({
     column: PropTypes.shape({}),
     order: PropTypes.string,
   }),
-  onSortChange: PropTypes.func.isRequired,
 };
 
 HeaderColumn.defaultProps = {
-  sort: undefined,
+  sort: {},
 };

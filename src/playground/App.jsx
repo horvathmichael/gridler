@@ -6,26 +6,26 @@ import Gridler from '../lib';
 import rows from './app-rows';
 import columns from './app-columns';
 
-const filters = undefined;
+const filter = {
+  name: '1',
+};
 const sort = undefined;
 
 const onAddClick = () => console.log('ADD');
 const onRowClick = (row) => console.log(row.id);
 
-function App() {
+export default function App() {
   return (
     <Container>
-      {console.log({ columns, rows })}
       <Gridler
         rows={rows}
         columns={columns}
-        filters={filters}
+        filter={filter}
         sort={sort}
+        local="de"
         onAddClick={onAddClick}
         onRowClick={onRowClick}
       />
     </Container>
   );
 }
-
-export default App;

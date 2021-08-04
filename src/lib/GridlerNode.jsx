@@ -4,10 +4,13 @@ import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 import { makeStyles, Typography } from '@material-ui/core';
 
-import Toolbar from './Toolbar';
-import Header from './Header';
-import Rows from './Rows';
-import Footer from './Footer';
+import {
+  densityConstant,
+} from './constant';
+import Toolbar from './components/Toolbar';
+import Header from './components/Header/Header';
+import Rows from './components/Rows';
+import Footer from './components/Footer';
 
 const useStyles = makeStyles(() => ({
   main: {
@@ -30,74 +33,77 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function DataGrid({
-  localization,
-  height,
-  rows,
-  filteredRows,
-  pageRows,
+export default function GridlerNode({
   columns,
-  filters,
   density,
-  sort,
-  page,
-  pageSize,
+  filename,
+  filter,
+  height,
+  initialRows,
+  local,
+  onAddClick,
+  onColumnsChange,
+  onDensityChange,
+  onFilterChange,
   onPageChange,
   onPageSizeChange,
-  onColumnsChange,
-  onFilterChange,
-  onDensityChange,
-  onSortChange,
-  onExport,
-  onAdd,
   onRowClick,
+  onSortChange,
+  page,
+  pageRows,
+  pageSize,
+  rows,
+  sort,
+  toolbarSettings,
 }) {
   const classes = useStyles({ height });
 
   return (
     <div>
       <Toolbar
-        localization={localization.toolbar}
         columns={columns}
-        filters={filters}
         density={density}
+        filename={filename}
+        filter={filter}
+        local={local.toolbar}
+        onAddClick={onAddClick}
         onColumnsChange={onColumnsChange}
-        onFilterChange={onFilterChange}
         onDensityChange={onDensityChange}
-        onExport={onExport}
-        onAdd={onAdd}
+        onFilterChange={onFilterChange}
+        rows={rows}
+        settings={toolbarSettings}
       />
       <Paper>
         <div className={classes.main}>
           <div className={classes.data}>
             <Header
               columns={columns}
-              filters={filters}
-              sort={sort}
+              filter={filter}
               onSortChange={onSortChange}
+              sort={sort}
             />
             {pageRows.length > 0 ? (
               <Rows
-                pageRows={pageRows}
                 columns={columns}
                 density={density}
+                pageRows={pageRows}
                 onRowClick={onRowClick}
               />
             ) : (
               <div className={classes.nodata}>
-                <Typography>{localization.data.nodata}</Typography>
+                <Typography>{local.rows.nodata}</Typography>
               </div>
             )}
           </div>
           <Divider />
           <Footer
-            localization={localization.footer}
-            rows={rows}
-            filteredRows={filteredRows}
-            page={page}
-            pageSize={pageSize}
+            initialRows={initialRows}
+            local={local.footer}
             onPageChange={onPageChange}
             onPageSizeChange={onPageSizeChange}
+            page={page}
+            pageSize={pageSize}
+            rows={rows}
           />
         </div>
       </Paper>
@@ -105,38 +111,42 @@ export default function DataGrid({
   );
 }
 
-DataGrid.propTypes = {
-  localization: PropTypes.shape({
+GridlerNode.propTypes = {
+  columns: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  density: PropTypes.oneOf([
+    densityConstant.compact,
+    densityConstant.default,
+    densityConstant.comfort,
+  ]).isRequired,
+  filter: PropTypes.shape({}).isRequired,
+  filename: PropTypes.string.isRequired,
+  height: PropTypes.number.isRequired,
+  initialRows: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  local: PropTypes.shape({
     toolbar: PropTypes.shape({}).isRequired,
-    data: PropTypes.shape({
+    rows: PropTypes.shape({
       nodata: PropTypes.string.isRequired,
     }).isRequired,
     footer: PropTypes.shape({}).isRequired,
   }).isRequired,
-  rows: PropTypes.arrayOf(PropTypes.shape()).isRequired,
-  filteredRows: PropTypes.arrayOf(PropTypes.shape()).isRequired,
-  pageRows: PropTypes.arrayOf(PropTypes.shape()).isRequired,
-  columns: PropTypes.arrayOf(PropTypes.shape()).isRequired,
-  filters: PropTypes.shape().isRequired,
-  density: PropTypes.string.isRequired,
-  sort: PropTypes.shape(),
-  height: PropTypes.number,
-  page: PropTypes.number.isRequired,
-  pageSize: PropTypes.number.isRequired,
+  onAddClick: PropTypes.func,
   onColumnsChange: PropTypes.func.isRequired,
-  onFilterChange: PropTypes.func.isRequired,
   onDensityChange: PropTypes.func.isRequired,
-  onSortChange: PropTypes.func.isRequired,
+  onFilterChange: PropTypes.func.isRequired,
   onPageChange: PropTypes.func.isRequired,
   onPageSizeChange: PropTypes.func.isRequired,
-  onExport: PropTypes.func.isRequired,
-  onAdd: PropTypes.func,
   onRowClick: PropTypes.func,
+  onSortChange: PropTypes.func.isRequired,
+  page: PropTypes.number.isRequired,
+  pageRows: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  pageSize: PropTypes.number.isRequired,
+  rows: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  sort: PropTypes.shape({}),
+  toolbarSettings: PropTypes.shape({}).isRequired,
 };
 
-DataGrid.defaultProps = {
-  sort: undefined,
-  onAdd: undefined,
+GridlerNode.defaultProps = {
+  onAddClick: undefined,
   onRowClick: undefined,
-  height: 600,
+  sort: undefined,
 };

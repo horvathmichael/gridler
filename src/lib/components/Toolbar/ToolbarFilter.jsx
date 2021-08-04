@@ -8,8 +8,6 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Badge from '@material-ui/core/Badge';
 
-import { FilterIcon } from './Icons';
-
 const useStyles = makeStyles((theme) => ({
   icon: {
     marginRight: theme.spacing(1),
@@ -22,9 +20,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ToolbarFilter({
-  localization,
   columns,
-  filters,
+  filter,
+  icon,
+  local,
   onFilterChange,
 }) {
   const classes = useStyles();
@@ -34,8 +33,8 @@ export default function ToolbarFilter({
   const onMenuClose = () => setAnchorEl();
   const countFilter = () => {
     let counter = null;
-    Object.keys(filters).forEach((key) => {
-      if (filters[key] !== '' && filters[key] !== null) {
+    Object.keys(filter).forEach((key) => {
+      if (filter[key] !== '' && filter[key] !== null) {
         counter += 1;
       }
     });
@@ -45,8 +44,8 @@ export default function ToolbarFilter({
     <div>
       <Badge color="primary" badgeContent={countFilter()}>
         <Button color="primary" onClick={onMenuOpen}>
-          <FilterIcon className={classes.icon} />
-          {localization.button}
+          {icon}
+          {` ${local.button}`}
         </Button>
       </Badge>
       <Popover
@@ -66,7 +65,7 @@ export default function ToolbarFilter({
                   color="primary"
                   name={column.field}
                   label={column.headerName}
-                  value={filters[column.field]}
+                  value={filter[column.field] || ''}
                   onChange={(event) => onFilterChange(column.field, event.target.value)}
                   fullWidth
                 />
@@ -78,11 +77,11 @@ export default function ToolbarFilter({
                     <Checkbox
                       color="primary"
                       name={column.field}
-                      checked={filters[column.field] === null ? false : filters[column.field]}
+                      checked={filter[column.field] === null ? false : filter[column.field]}
                       onChange={(event, value) => {
-                        onFilterChange(column.field, filters[column.field] === false ? null : value);
+                        onFilterChange(column.field, filter[column.field] === false ? null : value);
                       }}
-                      indeterminate={filters[column.field] === false}
+                      indeterminate={filter[column.field] === false}
                     />
                   )}
                 />
@@ -95,14 +94,11 @@ export default function ToolbarFilter({
 }
 
 ToolbarFilter.propTypes = {
-  localization: PropTypes.shape({
+  columns: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  filter: PropTypes.PropTypes.shape().isRequired,
+  icon: PropTypes.node.isRequired,
+  local: PropTypes.shape({
     button: PropTypes.string.isRequired,
   }).isRequired,
-  columns: PropTypes.arrayOf(PropTypes.shape()).isRequired,
-  filters: PropTypes.PropTypes.shape(),
   onFilterChange: PropTypes.func.isRequired,
-};
-
-ToolbarFilter.defaultProps = {
-  filters: {},
 };

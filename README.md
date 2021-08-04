@@ -1,70 +1,94 @@
-# Getting Started with Create React App
+# gridler
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Table of Contents
+- [Installation](#installation)
+- [Import](#import)
+- [Props](#props)
+  - [GridlerColumn](#gridlercolumn)
+  - [Row rendering](#row-rendering)
+- [Getting Started](#getting-started)
 
-## Available Scripts
+## Installation
+```
+npm install gridler
+```
 
-In the project directory, you can run:
+## Import 
+```js
+import Gridler from "gridler";
+```
 
-### `npm start`
+## Props
+|Name|Type|Default|Description|
+|---|---|---|---|
+|columns*|[GridlerColumn](#gridlercolumn)[]||List of columns of type 'GridlerColumn'. See [GridlerColumn](#gridlercolumn) below for more details.|
+|rows*|object[]||List of rows |
+|density|'compact' \| 'default' \| 'comfort'|'default'|Sets the density of the rows.|
+|filter|object||Sets the initial filter criteria. For example {id: 5, name: 'Doe'}|
+|sort|object||Sets the initial sort field and order. For example { field: 'id', order:'asc'}|
+|disableColumnSelector|boolean|false|If **true**, the column selector is disabled.|
+|disableDensitySelector|boolean|false|If **true**, the density selector is disabled.|
+|local|'en' \| 'de'|'en'|Sets which set of text labels should be used in the Gridler|
+|onAddClick|() => void||If defined, a 'Add' button will be displayed in the toolbar and the callback fired when a click event comes|
+|onRowClick|(row, event: React.MouseEvent) => void||Callback fired when a click event comes from a row container element.|
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### GridlerColumn
+|Name|Type|Default|Description|
+|---|---|---|---|
+|field*|string||Name of the row-object field to use in this column|
+|description|string||description of the column|
+|filterable|boolean|true|if **true** the rows can be filtered by the value in this column|
+|headerName|string|`column${index}`|Label for the column header|
+|hide|boolean|false|if **true** the column will not be displayed|
+|renderHeader|() => node||Set this function if you want to render more than a simple label as header|
+|renderCell|(row) => node||Set this function if you want to render a node as row value|
+|sortable|boolean|true|if **true**, the rows can be sorted by the value in this column|
+|sortComparator|(a,b) => integer||You can set a custom sort comparator to define how this column should be sorted|
+|type|'text' \| 'number' \| 'date' \| 'dateTime' \| 'boolean' \| 'select'|'text'|the type of the column|
+|valueFormatter|(value) => string||You can set a value formatter to format the value for display without changing the underlaying value (for example '0.2' to '20%')|
+|valueGetter|(row) => string||Use this function if the column doesn´t have a corresponding value, or if you want to render a combination of different fields.|
+|width|integer|200|width of the column|
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Row rendering
+By default, the gridler renders the value as a string in the cell. It resolves the rendered output in the following order:
 
-### `npm test`
+1. renderCell(row) => ReactElement
+2. valueFormatter(value) => string
+3. valueGetter(row) => string
+4. row[field]
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Getting Started
+```js
+import Gridler from "gridler";
 
-### `npm run build`
+const columns = [
+  {
+    field: 'id',
+    headerName: 'ID',
+    width: 50,
+  }, {
+    field: 'name',
+    headerName: 'Name',
+    valueGetter: ({row}) => `${row.firstname} ${row.lastname}`,
+    width: 200,
+  }, {
+    field: 'email',
+    headerName: 'Email',
+    width: 250,
+  },
+];
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+const rows = [
+  { id: 1, firstname: 'John', lastname: 'Doe', email: 'john@thisisnotareal.adress'},
+  { id: 1, firstname: 'Jane', lastname: 'Doe', email: 'jane@thisisnotareal.adress'},
+];
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+export default function App() {
+  return (
+    <Gridler 
+      columns={columns}
+      rows={rows}
+    />
+  );
+};
+```

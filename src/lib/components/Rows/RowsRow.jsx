@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core';
 
-import RowColumn from './RowColumn';
+import { densityConstant } from '../../constant';
+import Cell from './RowsRowCell';
 
 const densities = {
-  compact: 0,
-  standard: 1,
-  comfortable: 2,
+  [densityConstant.compact]: 0,
+  [densityConstant.default]: 1,
+  [densityConstant.comfort]: 2,
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -24,16 +25,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Row({
-  row, columns, density, onClick,
+  columns,
+  density,
+  onClick,
+  row,
 }) {
   const classes = useStyles({ density, onClick });
 
   return (
     <div className={classes.row}>
       {columns
-        .filter((column) => !column.hidden)
+        .filter((column) => !column.hide)
         .map((column) => (
-          <RowColumn
+          <Cell
             key={column.field}
             row={row}
             column={column}
@@ -46,12 +50,11 @@ export default function Row({
 
 Row.propTypes = {
   columns: PropTypes.arrayOf(PropTypes.shape()).isRequired,
-  row: PropTypes.shape().isRequired,
-  density: PropTypes.string,
+  density: PropTypes.string.isRequired,
   onClick: PropTypes.func,
+  row: PropTypes.shape().isRequired,
 };
 
 Row.defaultProps = {
   onClick: undefined,
-  density: 'standard',
 };
